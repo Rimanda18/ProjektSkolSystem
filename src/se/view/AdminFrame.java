@@ -450,13 +450,13 @@ public class AdminFrame extends javax.swing.JFrame {
                         query = "DELETE FROM Student WHERE idStudent = " + click;
                         break;
                     case lärare:
-                        query = "DELETE FROM Teacher WHERE idStudent = " + click;
+                        query = "DELETE FROM Teacher WHERE idTeacher = " + click;
                         break;
                     case admin:
-                        query = "DELETE FROM Admin WHERE idStudent = " + click;
+                        query = "DELETE FROM Admin WHERE idAdmin = " + click;
                         break;
                     case personal:
-                        query = "DELETE FROM Staff WHERE idStudent = " + click;
+                        query = "DELETE FROM Staff WHERE idStaff = " + click;
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Fel har uppstått!");
