@@ -1,6 +1,15 @@
 
 package se.view;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import se.skola.MyConnection;
 import se.skola.TheDate;
 
 /**
@@ -9,15 +18,43 @@ import se.skola.TheDate;
  */
 public class StaffFrame extends javax.swing.JFrame {
     
+    ArrayList <String> proffessionList;
     TheDate dt = new TheDate();
     private final String date;
+    Connection con;
+    ResultSet rs = null;
+    PreparedStatement ps;
+    String query = null;
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public StaffFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.proffessionList = new ArrayList<>();
         this.date = dt.showDate();
         dateLabel.setText(date);
+        showData();
+    }
+    
+    public void showData(){
+        con = MyConnection.getConnection();
+
+        query = "SELECT Profession FROM staff GROUP BY Profession";
+
+        try {
+             ps = con.prepareStatement(query);
+             rs = ps.executeQuery();
+
+          while(rs.next()){
+             
+              proffessionList.add(rs.getString("Profession"));
+          }
+         
+            jComboBox1.setModel(new DefaultComboBoxModel<>(proffessionList.toArray(new String[0])));
+    
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -35,11 +72,17 @@ public class StaffFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         exitButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         exitButton.setText("Avsluta");
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -80,6 +123,8 @@ public class StaffFrame extends javax.swing.JFrame {
         dateLabel.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(255, 255, 255));
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,6 +132,8 @@ public class StaffFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
@@ -96,6 +143,7 @@ public class StaffFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -120,8 +168,12 @@ public class StaffFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        System.exit(0);
+  
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+                 
+    }//GEN-LAST:event_exitButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -162,6 +214,7 @@ public class StaffFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton exitButton;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
