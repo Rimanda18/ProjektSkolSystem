@@ -30,7 +30,6 @@ hs_err_pid*
 /test
 /build.xml
 /manifest.mf
-/src/se/view/MyConnection.java
 /dist/
 .DS_Store
 src/se/skola/MyConnection.java
