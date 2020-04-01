@@ -26,8 +26,8 @@
           <Component id="jPanel1" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel3" max="32767" attributes="0"/>
                   <Component id="jPanel4" max="32767" attributes="0"/>
+                  <Component id="jPanel3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -165,7 +165,7 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="872" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -278,13 +278,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="addNewAdminButton" linkSize="5" min="-2" pref="177" max="-2" attributes="0"/>
-                      <Component id="staffButton" linkSize="5" min="-2" pref="187" max="-2" attributes="0"/>
-                      <Component id="addnewTeacherButton" linkSize="5" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newStudentButton" linkSize="5" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="addNewAdminButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="addnewTeacherButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="newStudentButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="staffButton" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -361,21 +361,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="exitButton" min="-2" pref="188" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="deleteButton" alignment="0" min="-2" pref="188" max="-2" attributes="0"/>
-                              <Component id="updateButton" min="-2" pref="188" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="exitButton" max="32767" attributes="0"/>
+                      <Component id="deleteButton" max="32767" attributes="0"/>
+                      <Component id="updateButton" pref="204" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

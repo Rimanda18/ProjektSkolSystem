@@ -1,5 +1,6 @@
 package se.view;
 
+import java.sql.Connection;
 import se.skola.MyConnection;
 import se.skola.TheDate;
 import java.sql.PreparedStatement;
@@ -18,13 +19,20 @@ public class RegisterFrame extends javax.swing.JFrame {
 
     TheDate dt = new TheDate();
     private String dateTime;
+    private String title;
+    Connection con = null;
+    ResultSet rs = null;
+    String query = null;
+    PreparedStatement ps = null;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public RegisterFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        con = MyConnection.getConnection();
         this.dateTime = dt.showDate();
         dateLabel.setText(dateTime);
+        this.title = jComboBox1.getSelectedItem().toString();
     }
 
     /**
@@ -118,21 +126,11 @@ public class RegisterFrame extends javax.swing.JFrame {
         firstnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
 
         lastnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        lastnameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastnameFieldActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel6.setText("Email:");
 
         emailField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel9.setText("Klicka här för att logga in");
@@ -266,16 +264,8 @@ public class RegisterFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        insert();
+        checkDataInfo(title);
     }//GEN-LAST:event_registerButtonActionPerformed
-
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
-
-    private void lastnameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastnameFieldActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         this.setVisible(false);
@@ -289,7 +279,8 @@ public class RegisterFrame extends javax.swing.JFrame {
         sf.setVisible(true);
     }//GEN-LAST:event_returnButtonActionPerformed
 
-    public int insert() {
+    
+    public void checkDataInfo(String title) {
 
         String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
@@ -305,14 +296,37 @@ public class RegisterFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!");
         } else if (email.equals("")) {
             JOptionPane.showMessageDialog(null, "Skriv in ditt email!");
+        } else if (!emailField.getText().contains("@")) {
+            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
+        } else if (!emailField.getText().contains(".")) {
+            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
         } else if (password.equals("")) {
             JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
-        }else{
+        } else {
 
-        ResultSet rs = null;
-        String query = null;
+            query = "SELECT Email FROM "+ title +" WHERE Email ='" + emailField.getText() + "'";
+
+            try {
+                ps = con.prepareStatement(query);
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Detta email finns redan registrerad!  "
+                            + "\nGå vidare till inloggning!");
+                } else {
+                    insert(firstname, lastname, username, email, password);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+    
+
+    public int insert(String firstname, String lastname, String username, String email, String password) {
+
         int idStudent = 0;
-        String title = jComboBox1.getSelectedItem().toString();
 
         if (null != title) {
             switch (title) {
@@ -334,7 +348,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             }
         }
 
-        PreparedStatement ps;
+        
         try {
             ps = MyConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, firstname);
@@ -342,7 +356,6 @@ public class RegisterFrame extends javax.swing.JFrame {
             ps.setString(3, username);
             ps.setString(4, email);
             ps.setString(5, password);
-
 
             int update = ps.executeUpdate();
             if (update == 1) {
@@ -368,8 +381,6 @@ public class RegisterFrame extends javax.swing.JFrame {
         }
 
         return idStudent;
-    }
-        return -1;
     }
     
     private void reset() {

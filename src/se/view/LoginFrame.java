@@ -1,4 +1,3 @@
-
 package se.view;
 
 import se.skola.MyConnection;
@@ -11,8 +10,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- * 
- * @author rimazivkovic 
+ *
+ * @author rimazivkovic
  */
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -203,9 +202,9 @@ public class LoginFrame extends javax.swing.JFrame {
         String query = null;
         PreparedStatement ps;
         String title = jComboBox1.getSelectedItem().toString();
-        
+
         con = MyConnection.getConnection();
-        
+
         String username = usernameField.getText();
         String password = String.valueOf(passwordField.getPassword());
 
@@ -232,11 +231,11 @@ public class LoginFrame extends javax.swing.JFrame {
         try {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-            
-            if("".equals(username)){
-               JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!"); 
-            
-            }else if ("".equals(password)) {
+
+            if ("".equals(username)) {
+                JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!");
+
+            } else if ("".equals(password)) {
                 JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
 
             } else if (rs.next()) {
@@ -245,8 +244,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Tillträde ej beviljats! Försök igen...");
                     usernameField.setText("");
                     passwordField.setText("");
-                   
-                } else
+
+                } else {
                     switch (title) {
                         case "Admin":
                             String entry = rs.getNString("Entry");
@@ -254,28 +253,26 @@ public class LoginFrame extends javax.swing.JFrame {
                             if (entry.equals("true")) {
                                 this.setVisible(false);
                                 AdminFrame adminF = new AdminFrame();
-                                adminF.setVisible(true);                            
+                                adminF.setVisible(true);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Tillträde ej beviljats! Kontakta Administratör!");
                                 usernameField.setText("");
                                 passwordField.setText("");
-                }
+                            }
                             break;
 
                         case "Student":
-                            
+
                             int StudentID = rs.getInt("idStudent");
                             String studentName = rs.getString("Firstname");
                             String studentLastname = rs.getString("Lastname");
                             String studentUsername = rs.getString("Username");
                             String studentEmail = rs.getString("Email");
 
-
                             StudentFrame studentF = new StudentFrame(StudentID, studentName, studentLastname, studentUsername, studentEmail);
                             this.setVisible(false);
                             studentF.setVisible(true);
                             break;
-
 
                         case "Lärare":
                             int id = rs.getInt("idTeacher");
@@ -293,19 +290,22 @@ public class LoginFrame extends javax.swing.JFrame {
                             StaffFrame stuffF = new StaffFrame();
                             stuffF.setVisible(true);
                             break;
-    
-                    default:
-                        JOptionPane.showMessageDialog(null, "Tillträde ej beviljats!! Försök igen...");
-                        usernameField.setText("");
-                        passwordField.setText("");
-                        break;
+
+                        default:
+                            JOptionPane.showMessageDialog(null, "Tillträde ej beviljats!! Försök igen...");
+                            usernameField.setText("");
+                            passwordField.setText("");
+                            break;
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Tillträde ej beviljats!! Försök igen...");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
- 
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -339,7 +339,7 @@ public class LoginFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

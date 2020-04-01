@@ -86,11 +86,6 @@ public class AddNewStaffFrame extends javax.swing.JFrame {
         jLabel3.setText("Förnamn:");
 
         uNameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        uNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uNameFieldActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel8.setText("Användarnamn:");
@@ -264,10 +259,6 @@ public class AddNewStaffFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void uNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uNameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_uNameFieldActionPerformed
-
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         String Profession = professionField.getText();
         String firstname = fNameField.getText();
@@ -284,6 +275,10 @@ public class AddNewStaffFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!");
         } else if (email.equals("")) {
             JOptionPane.showMessageDialog(null, "Skriv in ditt email!");
+        } else if (!mailField.getText().contains("@")) {
+            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
+        } else if (!mailField.getText().contains(".")) {
+            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
         } else if (password.equals("")) {
             JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
         } else {
