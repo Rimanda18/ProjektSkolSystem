@@ -45,12 +45,12 @@ public class RegisterFrame extends javax.swing.JFrame {
             ResultSet rs = check.executeQuery();
             
             if (rs.next()){
-                                jlblMessage.setText("User already exists!");
+                                jlblMessage.setText("Användare finns redan registrerad!");
             }
             
             else{
                 int confirm = JOptionPane.showConfirmDialog(this, 
-                    "Are you sure you want to register user?", 
+                    "Är du säker på att du vill registrera användare?", 
                     "Register", JOptionPane.YES_NO_OPTION);
                 if (confirm == 0){
             query =  "INSERT INTO "+status+"(`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (?,?,?,?,?);"; 
@@ -65,7 +65,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             ps.execute();
             jlblMessage.setText(null);
             
-            JOptionPane.showMessageDialog(this, "User successfully created!",
+            JOptionPane.showMessageDialog(this, "Användare har registrerats!",
                     "Register", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -75,7 +75,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             }
         }
                 
-                else {jlblMessage.setText("You have left unfilled fields!"); }
+                else {jlblMessage.setText("Fyll i tomma fält!"); }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -327,7 +327,7 @@ public class RegisterFrame extends javax.swing.JFrame {
                 checkAndInsert("Staff");
                 break;
             default:
-                JOptionPane.showMessageDialog(this, "Error has occurred!");
+                JOptionPane.showMessageDialog(this, "Fel har uppstått!");
                 break;
         }
     }//GEN-LAST:event_registerButtonActionPerformed
