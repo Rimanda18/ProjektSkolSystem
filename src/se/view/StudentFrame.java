@@ -40,7 +40,10 @@ public class StudentFrame extends javax.swing.JFrame implements Runnable {
     PreparedStatement ps;
 
     private String QUERYCLASS;
-            
+     
+    StudentFrame(String userStudent) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }       
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
 
@@ -81,6 +84,8 @@ public class StudentFrame extends javax.swing.JFrame implements Runnable {
         t.start();
 
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

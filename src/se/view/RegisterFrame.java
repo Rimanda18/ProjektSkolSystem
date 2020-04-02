@@ -45,7 +45,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             ResultSet rs = check.executeQuery();
             
             if (rs.next()){
-                                jlblMessage.setText("Användare finns redan registrerad!");
+              jlblMessage.setText("Användare finns redan registrerad!");
             }
             
             else{

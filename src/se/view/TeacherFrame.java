@@ -21,10 +21,10 @@ public class TeacherFrame extends javax.swing.JFrame {
     Connection con = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
+    String query = null;
     
     private String idStudent;
     String date;
-    private String query;
     TheDate dt = new TheDate();
     private int id;
     /**
@@ -36,21 +36,34 @@ public class TeacherFrame extends javax.swing.JFrame {
         initComponents(); 
         this.setLocationRelativeTo(null); 
         con = MyConnection.getConnection();
-        this.query = null;
-        this.idStudent = null;
-        this.date = dt.showDate();
-        dateLabel.setText(date); 
-        idField.enable(false);
     }
     
     public String user;
-    @SuppressWarnings("OverridableMethodCallInConstructor")
     public TeacherFrame(String user){
         initComponents();
-        this.setLocationRelativeTo(null);
+        con = MyConnection.getConnection();
+        this.date = dt.showDate();
+        dateLabel.setText(date); 
+        this.idStudent = null; 
+        idField.enable(false);
         this.user = user;
+        
+        String idTeacher = "SELECT Teacher.idTeacher from Teacher WHERE Username = '" + this.user + "'";
+
+        try {
+                ps = con.prepareStatement(idTeacher);
+                rs = ps.executeQuery();
+
+            if (rs.next()) {
+                this.id = rs.getInt("Teacher.idTeacher");
+                getInfo(id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -384,9 +397,8 @@ public class TeacherFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void getInfo(int id) {
-        this.id = id;
-      
+    private void getInfo(int id) {
+    
         query = "SELECT idStudent, Student.Firstname, Student.Lastname, Student.Email, Coursename FROM Course \n"
                 + "LEFT JOIN Teacher ON Course.Teacher_idTeacher = Teacher.idTeacher\n"
                 + "LEFT JOIN Course_has_Student ON Course.idCourse = Course_has_Student.Course_idCourse\n"

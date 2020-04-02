@@ -1,17 +1,14 @@
+
 package se.view;
 
-import se.skola.MyConnection;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import se.skola.MyConnection;
 
 /**
- *
- * @author rimazivkovic
+ * 
+ * @author Danny
  */
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -20,7 +17,66 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+public void login(String status, String title){
 
+        String username = usernameField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        if(!username.equals("") && !password.equals("")){
+            try {
+                                         
+            String exist = "select Username,Password from "+status+" where Username = ? and Password = ?;";
+            PreparedStatement check ;
+            check = MyConnection.getConnection().prepareStatement(exist);
+            check.setString(1, username);
+            check.setString(2, password);
+            ResultSet rs = check.executeQuery();
+            System.out.println("Ahhhaaa"); //Vad menar du med Ahhhaaa? :-)
+            if (rs.next()){
+                
+                this.setVisible(false);
+                
+                switch (title){
+                    
+                    case "Student":
+                    String userStudent = usernameField.getText();
+                    StudentFrame sf = new StudentFrame(userStudent);
+                    this.setVisible(false);
+                    sf.setVisible(true);
+                    break;
+                    
+                    case "Lärare":
+                    String userTeacher = usernameField.getText();
+                    TeacherFrame tf = new TeacherFrame(userTeacher);
+                    tf.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                    
+                    case "Admin":
+                    AdminFrame af = new AdminFrame(); //här behöver vi kontroller
+                    this.setVisible(false);
+                    af.setVisible(true);
+                    break;
+                    
+                    case "Personal":
+                    StaffFrame ssf = new StaffFrame();
+                    this.setVisible(false);
+                    ssf.setVisible(true);
+                    break;
+                    
+                }
+            }
+            else if (!rs.next()){
+            
+            jlblMessage.setText("<html>Username and password do not match!</html>");
+            } 
+            }catch (SQLException e) {
+                System.out.println(e.getMessage() + " i'm here");
+            }
+        }
+            else //{JOptionPane.showMessageDialog(null, "You have left unfilled fields!"); }
+        {   
+            jlblMessage.setText("You have left unfilled fields!");}
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +98,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         returnButton = new javax.swing.JButton();
+        jlblMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,6 +172,9 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        jlblMessage.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jlblMessage.setForeground(new java.awt.Color(255, 0, 51));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -140,7 +200,8 @@ public class LoginFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(usernameField)
-                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
@@ -161,13 +222,15 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(returnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {loginButton, returnButton});
@@ -184,7 +247,7 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,115 +260,25 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        Connection con;
-        ResultSet rs;
-        String query = null;
-        PreparedStatement ps;
-        String title = jComboBox1.getSelectedItem().toString();
-
-        con = MyConnection.getConnection();
-
-        String username = usernameField.getText();
-        String password = String.valueOf(passwordField.getPassword());
-
-        if (null != title) {
-            switch (title) {
-                case "Student":
-                    query = "Select * From Student Where Username = '" + username + "' and Password = '" + password + "'";
-                    break;
-                case "Admin":
-                    query = "Select * From Admin Where Username = '" + username + "' and Password = '" + password + "'";
-                    break;
-                case "Lärare":
-                    query = "Select * From Teacher Where Username = '" + username + "' and Password = '" + password + "'";
-                    break;
-                case "Personal":
-                    query = "Select * From Staff Where Username = '" + username + "' and Password = '" + password + "'";
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Fel har uppkommit!");
-                    break;
-            }
-        }
-
-        try {
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            if ("".equals(username)) {
-                JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!");
-
-            } else if ("".equals(password)) {
-                JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
-
-            } else if (rs.next()) {
-
-                if (null == title) {
-                    JOptionPane.showMessageDialog(null, "Tillträde ej beviljats! Försök igen...");
-                    usernameField.setText("");
-                    passwordField.setText("");
-
-                } else {
-                    switch (title) {
-                        case "Admin":
-                            String entry = rs.getNString("Entry");
-
-                            if (entry.equals("true")) {
-                                this.setVisible(false);
-                                AdminFrame adminF = new AdminFrame();
-                                adminF.setVisible(true);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Tillträde ej beviljats! Kontakta Administratör!");
-                                usernameField.setText("");
-                                passwordField.setText("");
-                            }
-                            break;
-
-                        case "Student":
-
-                            int StudentID = rs.getInt("idStudent");
-                            String studentName = rs.getString("Firstname");
-                            String studentLastname = rs.getString("Lastname");
-                            String studentUsername = rs.getString("Username");
-                            String studentEmail = rs.getString("Email");
-
-                            StudentFrame studentF = new StudentFrame(StudentID, studentName, studentLastname, studentUsername, studentEmail);
-                            this.setVisible(false);
-                            studentF.setVisible(true);
-                            break;
-
-                        case "Lärare":
-                            int id = rs.getInt("idTeacher");
-                            String teacherName = rs.getString("Teacher.FirstName");
-                            String teacherLastname = rs.getNString("Teacher.Lastname");
-                            this.setVisible(false);
-                            TeacherFrame teacherF = new TeacherFrame();
-                            teacherF.getInfo(id);
-                            teacherF.teacherNameLabel.setText("(" + teacherName + " " + teacherLastname + ")");
-                            teacherF.setVisible(true);
-                            break;
-
-                        case "Personal":
-                            this.setVisible(false);
-                            StaffFrame stuffF = new StaffFrame();
-                            stuffF.setVisible(true);
-                            break;
-
-                        default:
-                            JOptionPane.showMessageDialog(null, "Tillträde ej beviljats!! Försök igen...");
-                            usernameField.setText("");
-                            passwordField.setText("");
-                            break;
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Tillträde ej beviljats!! Försök igen...");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+          String title = jComboBox1.getSelectedItem().toString();
+          
+             switch (title){
+                 case "Student":
+                     
+                 login("student", title);
+                 break;
+                 case "Lärare":
+                 login("Teacher", title);
+                 break;
+                 case "Admin":
+                 login("Admin", title);
+                 break;
+                 case "Personal":
+                 login("staff", title);
+                 break;
+             }
     }//GEN-LAST:event_loginButtonActionPerformed
-
+ 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -339,7 +312,7 @@ public class LoginFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -360,6 +333,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jlblMessage;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton returnButton;
