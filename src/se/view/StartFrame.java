@@ -485,13 +485,13 @@ public class StartFrame extends javax.swing.JFrame {
                          + "                                      \n"
                          + "               Rektor\n"
                          + "               Namn: Anton Meck\n"
-                         + "               Email: Anton@gmail.com\n"
+                         + "               Email: Anton@admin.com\n"
                          + "               Tel: 08-548 99 34 00\n"
                          + "                                      \n"
                          + "                                      \n"
                          + "               Rektor biträde\n"
                          + "               Namn: Ritva Stig\n"
-                         + "               Email: Ritva@gmail.com\n"
+                         + "               Email: Ritva@admin.com\n"
                          + "               Tel: 08-548 99 34 01\n");
     }//GEN-LAST:event_contactLabelMouseClicked
 

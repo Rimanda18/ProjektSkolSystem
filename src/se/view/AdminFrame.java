@@ -3,7 +3,6 @@ package se.view;
 
 import se.skola.MyConnection;
 import se.skola.TheDate;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection; 
@@ -13,7 +12,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 
@@ -24,7 +22,7 @@ public class AdminFrame extends javax.swing.JFrame {
     PreparedStatement ps = null;
 
     private String query;
-    private String direction;
+    private String person;
     private final String date;
     private final String student = "student";
     private final String admin = "admin";
@@ -42,7 +40,7 @@ public class AdminFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public AdminFrame() {
-        this.direction = null;
+        this.person = null;
         this.query = null;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -437,32 +435,15 @@ public class AdminFrame extends javax.swing.JFrame {
         if (selection != -1) {
             String click = jTable1.getModel().getValueAt(selection, 0).toString();
 
-            if (null != direction) {
-                switch (direction) {
-                    case student:
-                        query = "DELETE FROM Student WHERE idStudent = " + click;
-                        break;
-                    case lärare:
-                        query = "DELETE FROM Teacher WHERE idTeacher = " + click;
-                        break;
-                    case admin:
-                        query = "DELETE FROM Admin WHERE idAdmin = " + click;
-                        break;
-                    case personal:
-                        query = "DELETE FROM Staff WHERE idStaff = " + click;
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Fel har uppstått!");
-                        break;
-                }
-            }
-            int dialogButton = JOptionPane.showConfirmDialog(null, "Är du säker att du vill radera " + direction + " , ID:" + click, "WARNING", JOptionPane.YES_NO_OPTION);
+            query = "DELETE FROM "+ person + " WHERE id" + person + " = " + click;
+           
+            int dialogButton = JOptionPane.showConfirmDialog(null, "Är du säker att du vill radera " + person + " , ID:" + click, "WARNING", JOptionPane.YES_NO_OPTION);
             if (dialogButton == JOptionPane.YES_OPTION) {
                 try {
                     ps = con.prepareStatement(query);
                     ps.executeUpdate();
 
-                    JOptionPane.showMessageDialog(null, direction + " med ID:" + click + "har raderats!");
+                    JOptionPane.showMessageDialog(null, person + " med ID:" + click + "har raderats!");
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -486,8 +467,8 @@ public class AdminFrame extends javax.swing.JFrame {
                     int selection = jTable1.getSelectedRow();
                     String click = jTable1.getModel().getValueAt(selection, 0).toString();
 
-                    if (null != direction) {
-                        switch (direction) {
+                    if (null != person) {
+                        switch (person) {
                             case student:
                                 query = "select * from Student where idStudent = " + click;
 
@@ -641,13 +622,13 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        if (direction == null) {
+        if (person == null) {
             JOptionPane.showMessageDialog(null, "Du behöver välja information nedan!");
         } else {
             jTable1.removeAll();
 
-            if (null != direction) {
-                switch (direction) {
+            if (null != person) {
+                switch (person) {
                     case student:
                         getInfo(student);
                         break;
@@ -672,23 +653,23 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void studentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentInfoButtonActionPerformed
-        direction = student;
-        getInfo(direction);
+        person = student;
+        getInfo(person);
     }//GEN-LAST:event_studentInfoButtonActionPerformed
 
     private void adminInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminInfoButtonActionPerformed
-        direction = admin;
-        getInfo(direction);
+        person = admin;
+        getInfo(person);
     }//GEN-LAST:event_adminInfoButtonActionPerformed
 
     private void teacherInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherInfoButtonActionPerformed
-        direction = lärare;
-        getInfo(direction);
+        person = lärare;
+        getInfo(person);
     }//GEN-LAST:event_teacherInfoButtonActionPerformed
 
     private void stuffInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stuffInfoButtonActionPerformed
-        direction = personal;
-        getInfo(direction);
+        person = personal;
+        getInfo(person);
     }//GEN-LAST:event_stuffInfoButtonActionPerformed
 
     private void addnewTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewTeacherButtonActionPerformed
