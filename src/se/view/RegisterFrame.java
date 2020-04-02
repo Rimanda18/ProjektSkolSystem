@@ -1,40 +1,82 @@
+
 package se.view;
 
-import java.sql.Connection;
-import se.skola.MyConnection;
-import se.skola.TheDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import se.skola.MyConnection;
+import se.skola.TheDate;
 
 /**
  *
- * @author rimazivkovic
+ * @author rimazivkovic 
  */
 public class RegisterFrame extends javax.swing.JFrame {
 
     TheDate dt = new TheDate();
     private String dateTime;
-    private String title;
-    Connection con = null;
-    ResultSet rs = null;
-    String query = null;
-    PreparedStatement ps = null;
-
+    
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public RegisterFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-        con = MyConnection.getConnection();
         this.dateTime = dt.showDate();
         dateLabel.setText(dateTime);
-        this.title = jComboBox1.getSelectedItem().toString();
     }
-
+ public void checkAndInsert(String status){
+        String firstname = firstnameField.getText();
+        String lastname = lastnameField.getText();
+        String username = usernameField.getText();
+        String  email = emailField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        
+        String query ;
+        PreparedStatement ps;
+     
+         if(!firstname.equals("") && !lastname.equals("") && !username.equals("") && !email.equals("") && !password.equals("")){
+                                     try {
+                                         
+            String exist = "select Username,Email from "+status+" where Username = ? or Email = ?;";
+            PreparedStatement check ;
+            check = MyConnection.getConnection().prepareStatement(exist);
+            check.setString(1, username);
+            check.setString(2, email);
+            ResultSet rs = check.executeQuery();
+            
+            if (rs.next()){
+                                jlblMessage.setText("User already exists!");
+            }
+            
+            else{
+                int confirm = JOptionPane.showConfirmDialog(this, 
+                    "Are you sure you want to register user?", 
+                    "Register", JOptionPane.YES_NO_OPTION);
+                if (confirm == 0){
+            query =  "INSERT INTO "+status+"(`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (?,?,?,?,?);"; 
+            ps = MyConnection.getConnection().prepareStatement(query);
+           
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+            ps.setString(3, username);
+            ps.setString(4, email);
+            ps.setString(5, password);
+            
+            ps.execute();
+            jlblMessage.setText(null);
+            
+            JOptionPane.showMessageDialog(this, "User successfully created!",
+                    "Register", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+            }catch (SQLException e) {
+                System.out.println(e.getMessage() + " I'm here");
+            }
+        }
+                
+                else {jlblMessage.setText("You have left unfilled fields!"); }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,9 +103,10 @@ public class RegisterFrame extends javax.swing.JFrame {
         lastnameField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
-        returnButton = new javax.swing.JButton();
+        jlblMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,11 +169,21 @@ public class RegisterFrame extends javax.swing.JFrame {
         firstnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
 
         lastnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        lastnameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastnameFieldActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel6.setText("Email:");
 
         emailField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        emailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailFieldActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel9.setText("Klicka här för att logga in");
@@ -143,54 +196,48 @@ public class RegisterFrame extends javax.swing.JFrame {
         dateLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(153, 153, 153));
 
-        returnButton.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        returnButton.setText("Avbryt");
-        returnButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnButtonActionPerformed(evt);
-            }
-        });
+        jlblMessage.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jlblMessage.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lastnameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(firstnameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(114, 114, 114))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(203, 203, 203))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(229, 229, 229))))
+                        .addGap(229, 229, 229))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                    .addComponent(emailField)
+                                    .addComponent(lastnameField)
+                                    .addComponent(firstnameField)
+                                    .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(125, 125, 125))))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {registerButton, returnButton});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -218,27 +265,28 @@ public class RegisterFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {registerButton, returnButton});
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,139 +312,45 @@ public class RegisterFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        checkDataInfo(title);
+        String title = jComboBox1.getSelectedItem().toString();
+            if(null != title)switch (title) {
+            case "Student":
+                checkAndInsert("Student");
+                  break; 
+            case "Lärare":
+                checkAndInsert("Teacher");
+                break;
+            case "Admin":
+                checkAndInsert("Admin");
+                break;
+            case"Personal":
+                checkAndInsert("Staff");
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Error has occurred!");
+                break;
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldActionPerformed
+
+    private void lastnameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnameFieldActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         this.setVisible(false);
         LoginFrame lf = new LoginFrame();
         lf.setVisible(true);
     }//GEN-LAST:event_jLabel9MouseClicked
-
-    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-        this.setVisible(false);
-        StartFrame sf = new StartFrame();
-        sf.setVisible(true);
-    }//GEN-LAST:event_returnButtonActionPerformed
-
     
-    public void checkDataInfo(String title) {
-
-        String firstname = firstnameField.getText();
-        String lastname = lastnameField.getText();
-        String username = usernameField.getText();
-        String email = emailField.getText();
-        String password = String.valueOf(passwordField.getPassword());
-
-        if (firstname.equals("")) {
-            JOptionPane.showMessageDialog(null, "Skriv in ditt förnamn!");
-        } else if (lastname.equals("")) {
-            JOptionPane.showMessageDialog(null, "Skriv in ditt efternamn!");
-        } else if (username.equals("")) {
-            JOptionPane.showMessageDialog(null, "Skriv in ditt användarnamn!");
-        } else if (email.equals("")) {
-            JOptionPane.showMessageDialog(null, "Skriv in ditt email!");
-        } else if (!emailField.getText().contains("@")) {
-            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
-        } else if (!emailField.getText().contains(".")) {
-            JOptionPane.showMessageDialog(null, "Kontrollera din mailadress! ");
-        } else if (password.equals("")) {
-            JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
-        } else {
-
-            query = "SELECT Email FROM "+ title +" WHERE Email ='" + emailField.getText() + "'";
-
-            try {
-                ps = con.prepareStatement(query);
-                rs = ps.executeQuery();
-
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Detta email finns redan registrerad!  "
-                            + "\nGå vidare till inloggning!");
-                } else {
-                    insert(firstname, lastname, username, email, password);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }
     
-
-    public int insert(String firstname, String lastname, String username, String email, String password) {
-
-        int idStudent = 0;
-
-        if (null != title) {
-            switch (title) {
-                case "Student":
-                    query = "INSERT INTO `Student`(`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (?,?,?,?,?)";
-                    break;
-                case "Lärare":
-                    query = "INSERT INTO `Teacher`(`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (?,?,?,?,?)";
-                    break;
-                case "Admin":
-                    query = "INSERT INTO `Admin`(`Entry`,`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (false,?,?,?,?,?)";
-                    break;
-                case "Personal":
-                    query = "INSERT INTO `Staff`(`Firstname`, `Lastname`, `Username`, `Email`, `Password`) VALUES (?,?,?,?,?)";
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Fel! Försök igen!");
-                    break;
-            }
-        }
-
-        
-        try {
-            ps = MyConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-            ps.setString(3, username);
-            ps.setString(4, email);
-            ps.setString(5, password);
-
-            int update = ps.executeUpdate();
-            if (update == 1) {
-                rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    idStudent = rs.getInt(1);
-                    JOptionPane.showMessageDialog(null, "En ny " + title + " har registrerats");
-                    reset();
-
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RegisterFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return idStudent;
-    }
-    
-    private void reset() {
-        
-        firstnameField.setText("");
-        lastnameField.setText("");
-        usernameField.setText("");
-        emailField.setText("");
-        passwordField.setText("");
-
-    }
-
     /**
      * @param args the command line arguments
      */
-        public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -413,7 +367,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(RegisterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -436,14 +390,15 @@ public class RegisterFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel jlblMessage;
     private javax.swing.JTextField lastnameField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton registerButton;
-    private javax.swing.JButton returnButton;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -480,10 +480,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                JTable table = (JTable) mouseEvent.getSource();
-                Point point = mouseEvent.getPoint();
-                int row = table.rowAtPoint(point);
-                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+
+                if (mouseEvent.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
 
                     int selection = jTable1.getSelectedRow();
                     String click = jTable1.getModel().getValueAt(selection, 0).toString();
@@ -675,22 +673,22 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void studentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentInfoButtonActionPerformed
         direction = student;
-        getInfo(student);
+        getInfo(direction);
     }//GEN-LAST:event_studentInfoButtonActionPerformed
 
     private void adminInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminInfoButtonActionPerformed
         direction = admin;
-        getInfo(admin);
+        getInfo(direction);
     }//GEN-LAST:event_adminInfoButtonActionPerformed
 
     private void teacherInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherInfoButtonActionPerformed
         direction = lärare;
-        getInfo(lärare);
+        getInfo(direction);
     }//GEN-LAST:event_teacherInfoButtonActionPerformed
 
     private void stuffInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stuffInfoButtonActionPerformed
         direction = personal;
-        getInfo(personal);
+        getInfo(direction);
     }//GEN-LAST:event_stuffInfoButtonActionPerformed
 
     private void addnewTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewTeacherButtonActionPerformed
