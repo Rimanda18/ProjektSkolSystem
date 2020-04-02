@@ -69,8 +69,10 @@ public class StartFrame extends javax.swing.JFrame {
         teachersLabel = new javax.swing.JLabel();
         dPanel = new javax.swing.JPanel();
         caregiverLabel = new javax.swing.JLabel();
-        ePanel = new javax.swing.JPanel();
+        kontaktPanel = new javax.swing.JPanel();
         contactLabel = new javax.swing.JLabel();
+        omSidanPanel = new javax.swing.JPanel();
+        OmSidanLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.lightGray);
@@ -95,7 +97,7 @@ public class StartFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,9 +152,8 @@ public class StartFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(iconLabel)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -188,7 +189,7 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(adressLabel)
                     .addComponent(mailLabel)
                     .addComponent(jLabel8))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -261,7 +262,7 @@ public class StartFrame extends javax.swing.JFrame {
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(educationLabel)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,10 +290,10 @@ public class StartFrame extends javax.swing.JFrame {
         bPanel.setLayout(bPanelLayout);
         bPanelLayout.setHorizontalGroup(
             bPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bPanelLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+            .addGroup(bPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addComponent(shoolInfoLabel)
-                .addGap(34, 34, 34))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         bPanelLayout.setVerticalGroup(
             bPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,9 +322,9 @@ public class StartFrame extends javax.swing.JFrame {
         cPanelLayout.setHorizontalGroup(
             cPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(32, 32, 32)
                 .addComponent(teachersLabel)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         cPanelLayout.setVerticalGroup(
             cPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,10 +352,10 @@ public class StartFrame extends javax.swing.JFrame {
         dPanel.setLayout(dPanelLayout);
         dPanelLayout.setHorizontalGroup(
             dPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dPanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+            .addGroup(dPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(caregiverLabel)
-                .addGap(26, 26, 26))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         dPanelLayout.setVerticalGroup(
             dPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,21 +379,52 @@ public class StartFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout ePanelLayout = new javax.swing.GroupLayout(ePanel);
-        ePanel.setLayout(ePanelLayout);
-        ePanelLayout.setHorizontalGroup(
-            ePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ePanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
+        javax.swing.GroupLayout kontaktPanelLayout = new javax.swing.GroupLayout(kontaktPanel);
+        kontaktPanel.setLayout(kontaktPanelLayout);
+        kontaktPanelLayout.setHorizontalGroup(
+            kontaktPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kontaktPanelLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addComponent(contactLabel)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
-        ePanelLayout.setVerticalGroup(
-            ePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ePanelLayout.createSequentialGroup()
+        kontaktPanelLayout.setVerticalGroup(
+            kontaktPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kontaktPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(contactLabel)
                 .addContainerGap())
+        );
+
+        OmSidanLabel.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        OmSidanLabel.setText("Om hemsidan");
+        OmSidanLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                OmSidanLabelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                OmSidanLabelMouseEntered(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OmSidanLabelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout omSidanPanelLayout = new javax.swing.GroupLayout(omSidanPanel);
+        omSidanPanel.setLayout(omSidanPanelLayout);
+        omSidanPanelLayout.setHorizontalGroup(
+            omSidanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(omSidanPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(OmSidanLabel)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        omSidanPanelLayout.setVerticalGroup(
+            omSidanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(omSidanPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(OmSidanLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,17 +440,19 @@ public class StartFrame extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(7, 7, 7)
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(omSidanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(kontaktPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,17 +460,20 @@ public class StartFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kontaktPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(omSidanPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bPanel, cPanel, dPanel, jPanel, kontaktPanel, omSidanPanel});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -491,11 +528,11 @@ public class StartFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_caregiverLabelMouseExited
 
     private void contactLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactLabelMouseEntered
-        setColor(ePanel);
+        setColor(kontaktPanel);
     }//GEN-LAST:event_contactLabelMouseEntered
 
     private void contactLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactLabelMouseExited
-        resetColor(ePanel);
+        resetColor(kontaktPanel);
     }//GEN-LAST:event_contactLabelMouseExited
 
     public void setColor(JPanel a){
@@ -627,6 +664,32 @@ public class StartFrame extends javax.swing.JFrame {
         ef.getuser(this.user, mail);
     }//GEN-LAST:event_mailLabelMouseClicked
 
+    private void OmSidanLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OmSidanLabelMouseEntered
+        setColor(omSidanPanel);
+    }//GEN-LAST:event_OmSidanLabelMouseEntered
+
+    private void OmSidanLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OmSidanLabelMouseExited
+        resetColor(omSidanPanel);
+    }//GEN-LAST:event_OmSidanLabelMouseExited
+
+    private void OmSidanLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OmSidanLabelMouseClicked
+        textArea.setText("");
+        textArea.setText("\n              Om hemsidan            " + "\n"
+                       + "                                             \n"
+                       + "Denna webplats är strukturerad för att hantera \n"
+                       + "olika inloggningar samt underlätta skolhanteringen.\n"
+                       + "                                                   \n"
+                       + "För att kunna logga in och kunna se information\n"
+                       + "krävs ett godkännande. Du kan välja att registrera \n"
+                       + "dig och vänta på ett godkännande eller skicka dina \n"
+                       + "uppgifter via ett meddelande längst ner på sidan.\n"
+                       + "Skicka då dina uppgifter samt eventuell kurs.\n"
+                       + "                                                        \n"
+                       + "Har du möjligen frågor eller funderingar så \n"
+                       + "är du välkommen att kontakta oss.\n"   
+                       + "    ");
+    }//GEN-LAST:event_OmSidanLabelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -663,13 +726,13 @@ public class StartFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel OmSidanLabel;
     private javax.swing.JLabel adressLabel;
     private javax.swing.JPanel bPanel;
     private javax.swing.JPanel cPanel;
     private javax.swing.JLabel caregiverLabel;
     private javax.swing.JLabel contactLabel;
     private javax.swing.JPanel dPanel;
-    private javax.swing.JPanel ePanel;
     private javax.swing.JLabel educationLabel;
     private javax.swing.JLabel iconLabel;
     private javax.swing.JLabel jLabel1;
@@ -685,7 +748,9 @@ public class StartFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel kontaktPanel;
     private javax.swing.JLabel mailLabel;
+    private javax.swing.JPanel omSidanPanel;
     private javax.swing.JLabel shoolInfoLabel;
     private javax.swing.JLabel teachersLabel;
     private javax.swing.JTextArea textArea;
