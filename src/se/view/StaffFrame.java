@@ -181,7 +181,9 @@ public class StaffFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-
+        this.setVisible(false);
+        StartFrame sf = new StartFrame();
+        sf.setVisible(true);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
@@ -191,19 +193,31 @@ public class StaffFrame extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         ImageIcon imageVakmastare = new ImageIcon("src\\se\\image\\Vakmastare.jpg");
         ImageIcon imageLarare = new ImageIcon("src\\se\\image\\larare.png");
+        ImageIcon imageSjuksyster = new ImageIcon("src\\se\\image\\Sjuksyster.png");
+        ImageIcon imageLokalvardare = new ImageIcon("src\\se\\image\\Lokalvardare.png");
+        ImageIcon imageIT = new ImageIcon("src\\se\\image\\IT.png");
 
         String title = jComboBox1.getSelectedItem().toString();
 
         if (null != title) {
             switch (title) {
                 case "Vaktmästare":
-                     jLabelImg.setIcon(imageVakmastare);
+                    jLabelImg.setIcon(imageVakmastare);
+                    break;
+                case "Lärare":
+                    jLabelImg.setIcon(imageLarare);
                     break;
                 case "Sjuksyster":
-                      jLabelImg.setIcon(imageLarare);
+                    jLabelImg.setIcon(imageSjuksyster);
+                    break;
+                case "Lokalvårdare":
+                    jLabelImg.setIcon(imageLokalvardare);
+                    break;
+                case "IT":
+                    jLabelImg.setIcon(imageIT);
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Fel har uppkommit!");
+                    JOptionPane.showMessageDialog(null, "Om din schema inte vissas. Kontakta @admin tack!");
                     break;
             }
         } else {
