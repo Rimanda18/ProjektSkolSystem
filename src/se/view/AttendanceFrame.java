@@ -6,6 +6,7 @@
 package se.view;
 
 
+import datechooser.beans.DateChooserCombo;
 import se.skola.MyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,7 +59,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
                 jComboBox1.addItem(items);
                 }}
             } catch (Exception ex) {
-                System.out.println(ex.toString() + " Here it is");
+                System.out.println(ex.toString() + " AttendanceFrame");
             }
                       
     }
@@ -84,11 +85,27 @@ public class AttendanceFrame extends javax.swing.JFrame {
         }
             return courseNo;
     }
-    public String chosenDate(){
+   public String chosenDate(DateChooserCombo dateChooserCombo){
     SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd"); // formattea datechooser typ till en vanlig date typ
-        Date d1 = dateChooserCombo3.getSelectedDate().getTime();
+        Date d1 = dateChooserCombo.getSelectedDate().getTime();
         String date = sd.format(d1);
     return date;
+    }
+   
+        public String courseName(){
+     String sql = "select course.Coursename from course where course.idCourse = "+courseId()+";";
+     String courseName = null;
+     try{
+     PreparedStatement ps = MyConnection.getConnection().prepareStatement(sql);
+     ResultSet rs = ps.executeQuery();
+     if (rs.next()){
+         courseName = rs.getString("Coursename");
+     }
+     
+     }catch(Exception e){
+            System.out.println(e.toString());
+     }
+     return courseName;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +116,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -116,13 +134,27 @@ public class AttendanceFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jbtnCount = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 51, 0));
-        jPanel1.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setForeground(new java.awt.Color(255, 102, 0));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Närvaro Hanterare");
 
@@ -142,6 +174,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
 
         jLabel3.setText("T.o.m");
 
+        jbtnShow2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jbtnShow2.setText("Visa");
         jbtnShow2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +182,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
             }
         });
 
+        jbtnSave.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jbtnSave.setText("Spara");
         jbtnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +190,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
             }
         });
 
+        jbtnShow1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jbtnShow1.setText("Visa");
         jbtnShow1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +198,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
             }
         });
 
+        jbtnExit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jbtnExit.setText("Stäng");
         jbtnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,260 +218,328 @@ public class AttendanceFrame extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable2);
 
+        jbtnCount.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jbtnCount.setText("Räkna");
+        jbtnCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCountActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 559, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(84, 84, 84)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnShow1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbtnShow2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(100, 100, 100)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbtnShow1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbtnCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbtnShow2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbtnExit))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(50, 50, 50)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 2, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jbtnExit)
-                                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jbtnSave))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jbtnCount))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jbtnShow1)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addComponent(jbtnShow2))))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jbtnShow1)
+                                        .addComponent(dateChooserCombo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jbtnShow2))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnExit)
+                        .addGap(13, 13, 13))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCountActionPerformed
+        // TODO add your handling code here:
+
+        PreparedStatement ps;
+        String pres = "select Student_idStudent as StudentID, count(if(Attendance = 'Närvarande',1,null) ) as Närvarande,\n" +
+        "count(if(Attendance='Frånvarande',1,null) ) as Frånvarande, count(if(Attendance = '',1,null)) as Oantecknat\n" +
+        " from course_has_student \n" +
+        "where Course_idCourse = "+courseId()+" and Daydate between\n" +
+        "'"+chosenDate(dateChooserCombo1)+"' and '"+chosenDate(dateChooserCombo2)+"' group by Student_idStudent;";
+
+        try{
+            String message = null;
+            ps = MyConnection.getConnection().prepareStatement(pres);
+
+            ResultSet rs,rs1;
+            rs = ps.executeQuery();
+            ArrayList<String> list1 = new ArrayList<String>();
+
+            while (rs.next()){
+
+                int id = rs.getInt("StudentID");
+                int present = rs.getInt("Närvarande");
+                int absent = rs.getInt("Frånvarande");
+                int umarked = rs.getInt("Oantecknat");
+
+                if (id < 10){
+                    list1.add("  "+id +"               "+ present +"                        "+absent+"                        "+umarked+"\n");
+                }else{
+                    list1.add(id +"               "+ present +"                        "+absent+"                        "+umarked+"\n");
+
+                }
+            }
+
+            String formattedList1 = list1.toString().replace(",", "").replace("[", " ").replace("]", "");
+            message = "  ID        Närvarande    Frånvarande   Oantecknat\n" + formattedList1;
+
+            JOptionPane.showMessageDialog(this, "Ämne: "+courseName()+"\nFr.o.m "+chosenDate(dateChooserCombo1)+
+                " t.o.m "+chosenDate(dateChooserCombo2)+"\n\n"+message,"Hantera närvaro", JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e ){
+            System.out.println(e.toString()) ;
+        }
+    }//GEN-LAST:event_jbtnCountActionPerformed
+
+    private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
+       this.setVisible(false);
+    }//GEN-LAST:event_jbtnExitActionPerformed
+
     private void jbtnShow1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnShow1ActionPerformed
         // TODO add your handling code here:
-        // metoden ska köras två gånger, den ena för att hämta databasen 
+        // metoden ska köras två gånger, den ena för att hämta databasen
         // den andra för att spara och hämta databsen om den inte redan finns lagrad
-       for (int r = 0 ; r < 2 ; r++){ 
-            
-        PreparedStatement ps ;
-        ResultSet rs;
+        for (int r = 0 ; r < 2 ; r++){
 
-        
-        // hämtar courseId obs jag anropar inte metoden courseId eftersom jag behöver trigga koden med hjälp av if(rs.next)
-        String courseID = "select course.idCourse from course where Coursename = '"+jComboBox1.getSelectedItem()+"';";
-        
-                         
-          try {
-              
+            PreparedStatement ps ;
+            ResultSet rs;
+
+            // hämtar courseId obs jag anropar inte metoden courseId eftersom jag behöver trigga koden med hjälp av if(rs.next)
+            String courseID = "select course.idCourse from course where Coursename = '"+jComboBox1.getSelectedItem()+"';";
+
+            try {
+
                 ps = MyConnection.getConnection().prepareStatement(courseID);
                 rs = ps.executeQuery();
-                
-               if(rs.next() ){
-                  
-                   int courseNo = rs.getInt("course.idCourse");
-                   
-                String tableComponents = "select course_has_student.Student_idStudent as StudentId, "
-                        + " CONCAT(student.Firstname, \" \", student.Lastname) as Namn, Attendance as Närvaro, Notes as Anteckningar" +
-                " from course_has_student, student where course_has_student.Student_idStudent = student.idStudent and"
-                        + " course_has_student.Daydate = '"+chosenDate()+"' and Course_idCourse = "+courseNo+";"; 
-                 
-                PreparedStatement ps1 = MyConnection.getConnection().prepareStatement(tableComponents);
-                ResultSet rs1 = ps1.executeQuery();
-                
-                
-                
-                   jTable1.setModel(DbUtils.resultSetToTableModel(rs1));
-                
-                
-                // nedan har att göra med att använda luckorna i jtable som combobox 
-                String[] presence = {"Närvarande", "Frånvarande", ""}; 
-                String[] comments = {"Sjukdom", "Olyckshändelse", "Personliga skäl", "Semester", "Okänt skäl", "Annat", ""};
-                JComboBox presenceB = new JComboBox(presence);
-                JComboBox commentsB = new JComboBox(comments);
-                 jTable1.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(presenceB));
-                 jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(commentsB));
-                
-                
-                
-                
-                
-                
-                // jag upprepar tableComponents query eftersom jag if satsen förbrukar första raden i tabellen
-                String query1 = "select course_has_student.Student_idStudent as StudentId, "
-                        + " CONCAT(student.Firstname, \" \", student.Lastname) as Namn, Närvaro, Anteckningar" +
-                " from course_has_student, student where course_has_student.Student_idStudent = student.idStudent and"
-                        + " course_has_student.Daydate = '"+chosenDate()+"' and Course_idCourse = "+courseNo+";"; 
-                 
-                PreparedStatement ps2 = MyConnection.getConnection().prepareStatement(query1);
-                ResultSet rs2 = ps1.executeQuery();
-                // om valda kombinationen av date och ämne inte finns  i databasen så skappas dem 
-                    if (!rs2.next() ){  
-                    String studentIdQuery = "select distinct course_has_student.Student_idStudent\n" +
+
+                if(rs.next() ){
+
+                    int courseNo = rs.getInt("course.idCourse");
+
+                    String tableComponents = "select course_has_student.Student_idStudent as StudentId, "
+                    + " CONCAT(student.Firstname, \" \", student.Lastname) as Namn, Attendance as Närvaro, Notes as Anteckningar" +
+                    " from course_has_student, student where course_has_student.Student_idStudent = student.idStudent and"
+                    + " course_has_student.Daydate = '"+chosenDate(dateChooserCombo3)+"' and Course_idCourse = "+courseNo+";";
+
+                    PreparedStatement ps1 = MyConnection.getConnection().prepareStatement(tableComponents);
+                    ResultSet rs1 = ps1.executeQuery();
+
+                    jTable1.setModel(DbUtils.resultSetToTableModel(rs1));
+
+                    // nedan har att göra med att använda luckorna i jtable som combobox
+                    String[] presence = {"Närvarande", "Frånvarande", ""};
+                    String[] comments = {"Sjukdom", "Olyckshändelse", "Personliga skäl", "Semester", "Okänt skäl", "Annat", ""};
+                    JComboBox presenceB = new JComboBox(presence);
+                    JComboBox commentsB = new JComboBox(comments);
+                    jTable1.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(presenceB));
+                    jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(commentsB));
+
+                    // jag upprepar tableComponents query eftersom jag if satsen förbrukar första raden i tabellen
+                    String query1 = "select course_has_student.Student_idStudent as StudentId, "
+                    + " CONCAT(student.Firstname, \" \", student.Lastname) as Namn, Närvaro, Anteckningar" +
+                    " from course_has_student, student where course_has_student.Student_idStudent = student.idStudent and"
+                    + " course_has_student.Daydate = '"+chosenDate(dateChooserCombo3)+"' and Course_idCourse = "+courseNo+";";
+
+                    PreparedStatement ps2 = MyConnection.getConnection().prepareStatement(query1);
+                    ResultSet rs2 = ps1.executeQuery();
+                    // om valda kombinationen av date och ämne inte finns  i databasen så skappas dem
+                    if (!rs2.next() ){
+                        String studentIdQuery = "select distinct course_has_student.Student_idStudent\n" +
                         "from course_has_student where Course_idCourse = "+courseNo+";";
-                    ps = MyConnection.getConnection().prepareStatement(studentIdQuery);
-                    rs = ps.executeQuery();
-                    ArrayList<Integer> studentList = new ArrayList<Integer>();
-                    while(rs.next()){ 
-                    int studentId = rs.getInt("Student_idStudent");
-                    studentList.add(studentId);
-              
+                        ps = MyConnection.getConnection().prepareStatement(studentIdQuery);
+                        rs = ps.executeQuery();
+                        ArrayList<Integer> studentList = new ArrayList<Integer>();
+                        while(rs.next()){
+                            int studentId = rs.getInt("Student_idStudent");
+                            studentList.add(studentId);
+
+                        }
+                        //spara i databasen
+                        String insert = "insert into course_has_student values(?, ?, ?, ?, ?);";
+                        ps = MyConnection.getConnection().prepareStatement(insert);
+                        for (int i = 0; i <= studentList.size() ; i++){
+                            ps.setInt(1, courseNo);
+                            ps.setInt(2, studentList.get(i));
+                            ps.setString(3, chosenDate(dateChooserCombo3));
+                            ps.setString(4, "");
+                            ps.setString(5, "");
+
+                            ps.execute();
+                        }
                     }
-                    //spara i databasen
-                    String insert = "insert into course_has_student values(?, ?, ?, ?, ?);";
-                    ps = MyConnection.getConnection().prepareStatement(insert);
-                    for (int i = 0; i <= studentList.size() ; i++){
-                    ps.setInt(1, courseNo);
-                    ps.setInt(2, studentList.get(i));
-                    ps.setString(3, chosenDate());
-                    ps.setString(4, "");
-                    ps.setString(5, "");
-                
-                     ps.execute();
+
                 }
-               }
-                
-                
-                
-                
-                    
-              }
-                
-                                
+
             } catch (Exception ex) {
                 System.out.println(ex.toString() );
             }
-        
+
         }
     }//GEN-LAST:event_jbtnShow1ActionPerformed
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
         // TODO add your handling code here:
-        
+
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd"); // formattea datechooser typ till en vanlig date typ
         Date d1 = dateChooserCombo3.getSelectedDate().getTime();
         String date = sd.format(d1);
-        
-        
+
         String courseID = "select course.idCourse from course where Coursename = '"+jComboBox1.getSelectedItem()+"';";
-            
-            
-             
-          try {
-              PreparedStatement ps1;
-              ResultSet rs1;
-                ps1 = MyConnection.getConnection().prepareStatement(courseID);
-                rs1 = ps1.executeQuery();
-                
-               if(rs1.next() ){
-                  
-                   int courseNo = rs1.getInt("course.idCourse");
-                   
-                   
-    
-        
-        ArrayList attendanceList = new ArrayList(); // hämtar valörer från Attendance kolumn
-        ArrayList commentsList = new ArrayList(); // ämtar valörer från Comments kolumn
-        for (int j = 0 ; j < jTable1.getModel().getRowCount() ; j++){
-        attendanceList.add(jTable1.getModel().getValueAt(j, 2));
-        commentsList.add(jTable1.getModel().getValueAt(j, 3));
-        System.out.println(attendanceList.get(j));
-        System.out.println(commentsList.get(j));
 
-        }
-        for (int i = 0 ; i < jTable1.getModel().getRowCount() ; i++){
-        
-         String query = "UPDATE course_has_student SET "
-                 + " Attendance = '"+ attendanceList.get(i)+"', Notes = '"+commentsList.get(i)+ "'"
-         + " WHERE Course_idCourse = "+courseNo+" and Daydate = '"+date+"'"
-                 + " and Student_idStudent = "+jTable1.getModel().getValueAt(i, 0)+";";
-         
-        PreparedStatement ps = MyConnection.getConnection().prepareStatement(query);
-        
-        ps.execute();
-        
-        }
+        try {
+            PreparedStatement ps1;
+            ResultSet rs1;
+            ps1 = MyConnection.getConnection().prepareStatement(courseID);
+            rs1 = ps1.executeQuery();
 
+            if(rs1.next() ){
+
+                int courseNo = rs1.getInt("course.idCourse");
+
+                ArrayList attendanceList = new ArrayList(); // hämtar valörer från Attendance kolumn
+                ArrayList commentsList = new ArrayList(); // ämtar valörer från Comments kolumn
+                for (int j = 0 ; j < jTable1.getModel().getRowCount() ; j++){
+                    attendanceList.add(jTable1.getModel().getValueAt(j, 2));
+                    commentsList.add(jTable1.getModel().getValueAt(j, 3));
+                    System.out.println(attendanceList.get(j));
+                    System.out.println(commentsList.get(j));
+
+                }
+                for (int i = 0 ; i < jTable1.getModel().getRowCount() ; i++){
+
+                    String query = "UPDATE course_has_student SET "
+                    + " Attendance = '"+ attendanceList.get(i)+"', Notes = '"+commentsList.get(i)+ "'"
+                    + " WHERE Course_idCourse = "+courseNo+" and Daydate = '"+date+"'"
+                    + " and Student_idStudent = "+jTable1.getModel().getValueAt(i, 0)+";";
+
+                    PreparedStatement ps = MyConnection.getConnection().prepareStatement(query);
+
+                    ps.execute();
+
+                }
+
+            }
+            JOptionPane.showMessageDialog(this, "Ändringarna har sparats");
+        }catch(Exception e){
+            System.out.println(e.toString() + " saveAction");
         }
-      JOptionPane.showMessageDialog(this, "Your changes have been saved");
-          }catch(Exception e){
-          System.out.println(e.toString() + " there's an error");
-          }
     }//GEN-LAST:event_jbtnSaveActionPerformed
-
-    private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnShow2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnShow2ActionPerformed
         // TODO add your handling code here:
@@ -446,35 +550,27 @@ public class AttendanceFrame extends javax.swing.JFrame {
 
         String from = sd.format(d1);
         String to = sd.format(d2);
-                    
-             
-          try {
 
-                
-                
-                   
-        String exist = "select course_has_student.Student_idStudent as StudentId, \n" +
-        "concat(student.Firstname,\" \", student.Lastname) as Namn , \n" +
-        "Daydate as Datum, Attendance as Närvaro, Notes as Anteckningar \n" +
-        "from course_has_student, student where course_has_student.Student_idStudent\n" +
-        " = student.idStudent and course_has_student.Daydate between '"+from+"' and\n" +
-        " '"+to+"'and Course_idCourse = "+courseId()+" order by Daydate;";
-                
-        PreparedStatement check ;
-        
-        
-        check = MyConnection.getConnection().prepareStatement(exist);
-        
-        ResultSet rs = check.executeQuery();
-       
-        jTable2.setModel(DbUtils.resultSetToTableModel(rs));
-       
-        
+        try {
+
+            String exist = "select course_has_student.Student_idStudent as StudentId, \n" +
+            "concat(student.Firstname,\" \", student.Lastname) as Namn , \n" +
+            "Daydate as Datum, Attendance as Närvaro, Notes as Anteckningar \n" +
+            "from course_has_student, student where course_has_student.Student_idStudent\n" +
+            " = student.idStudent and course_has_student.Daydate between '"+from+"' and\n" +
+            " '"+to+"'and Course_idCourse = "+courseId()+" order by Daydate;";
+
+            PreparedStatement check ;
+
+            check = MyConnection.getConnection().prepareStatement(exist);
+
+            ResultSet rs = check.executeQuery();
+
+            jTable2.setModel(DbUtils.resultSetToTableModel(rs));
+
         }catch(Exception e){
-        System.out.println(e.toString());
+            System.out.println(e.toString());
         }
-        
-        
     }//GEN-LAST:event_jbtnShow2ActionPerformed
 
     /**
@@ -523,10 +619,14 @@ public class AttendanceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton jbtnCount;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JButton jbtnShow1;

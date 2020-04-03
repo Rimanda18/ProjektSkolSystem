@@ -4,6 +4,14 @@ package se.view;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import se.skola.MyConnection;
 
 /**
@@ -30,7 +38,7 @@ public void login(String status, String title){
             check.setString(1, username);
             check.setString(2, password);
             ResultSet rs = check.executeQuery();
-
+           
             if (rs.next()){
                 
                 this.setVisible(false);
@@ -54,7 +62,8 @@ public void login(String status, String title){
                     case "Admin":
                     AdminFrame af = new AdminFrame(); 
                     this.setVisible(false);
-                    af.setVisible(true);
+                    af.setVisible(true); 
+      
                     break;
                     
                     case "Personal":
@@ -67,15 +76,84 @@ public void login(String status, String title){
             }
             else if (!rs.next()){
             
-            jlblMessage.setText("<html>Username and password do not match!</html>");
+            jlblMessage.setText("<html>Användaren och lösenordet är icke registrerade!</html>");
             } 
             }catch (SQLException e) {
-                System.out.println(e.getMessage() + " i'm here");
+                System.out.println(e.getMessage() + " login");
             }
         }
             else //{JOptionPane.showMessageDialog(null, "You have left unfilled fields!"); }
         {   
-            jlblMessage.setText("You have left unfilled fields!");}
+            jlblMessage.setText("<html>Du har inte fyllt i alla fält!</html>");}
+    }
+
+    public String adminConfirmed(){
+        
+        String sql = "select Entry from admin where Username = '"+usernameField.getText()+"';";
+        String entry = "false";
+        try{
+        PreparedStatement ps ;
+        ResultSet rs ;
+        ps = MyConnection.getConnection().prepareStatement(sql);
+        rs = ps.executeQuery();
+        
+        if (rs.next()){
+        entry = rs.getString("Entry");
+        
+        }
+        
+        }catch(Exception e){
+        System.out.println(e.toString() + "adminConfirmer");
+        }
+        return entry;
+    }
+    
+     public String getPassword(String user) {
+        String exist = "select Password from "+user+" where Email ='"+txtForgottenPassword.getText()+"';";
+        PreparedStatement check ;
+        String pass = "";
+        try{
+        check = MyConnection.getConnection().prepareStatement(exist);
+        
+        
+        ResultSet rs = check.executeQuery();
+        if (rs.next()){
+        pass = rs.getString("Password");
+       
+        } 
+        }catch(Exception e){
+        System.out.println(e.toString() + " getPassword");
+        }
+        return pass;
+            }
+     
+       public void sendPassword(String to,String msg){
+    
+        Properties props = new Properties();    
+          props.put("mail.smtp.host", "smtp.gmail.com");    
+          props.put("mail.smtp.socketFactory.port", "465");    
+          props.put("mail.smtp.socketFactory.class",    
+                    "javax.net.ssl.SSLSocketFactory");    
+          props.put("mail.smtp.auth", "true");    
+          props.put("mail.smtp.port", "465");    
+          //get Session   
+          Session session = Session.getDefaultInstance(props,    
+           new javax.mail.Authenticator() {    
+           protected PasswordAuthentication getPasswordAuthentication() {    
+           return new PasswordAuthentication("newtonskola1@gmail.com","newtonskola.newtonskola");  
+           }    
+          });    
+          //compose message    
+          try {    
+           MimeMessage message = new MimeMessage(session);    
+           message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
+           message.setSubject("Password regained");    
+           message.setText(msg);    
+           //send message  
+           Transport.send(message);    
+           System.out.println("message sent successfully");    
+          } catch (MessagingException e) {throw new RuntimeException(e);} 
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +177,10 @@ public void login(String status, String title){
         passwordField = new javax.swing.JPasswordField();
         returnButton = new javax.swing.JButton();
         jlblMessage = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtForgottenPassword = new javax.swing.JTextField();
+        jbtnSend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,6 +257,21 @@ public void login(String status, String title){
         jlblMessage.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jlblMessage.setForeground(new java.awt.Color(255, 0, 51));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("Skicka det till din mail");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel6.setText("Glömt lösenordet?");
+
+        txtForgottenPassword.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+
+        jbtnSend.setText("Skicka");
+        jbtnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSendActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -182,27 +279,36 @@ public void login(String status, String title){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel5))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtForgottenPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jbtnSend))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(loginButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(returnButton))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4))
+                                    .addGap(43, 43, 43)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(usernameField)
+                                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(usernameField)
-                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel5)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {loginButton, returnButton});
@@ -222,15 +328,23 @@ public void login(String status, String title){
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                        .addComponent(returnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(returnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                    .addComponent(txtForgottenPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {loginButton, returnButton});
@@ -271,7 +385,11 @@ public void login(String status, String title){
                  login("Teacher", title);
                  break;
                  case "Admin":
-                 login("Admin", title);
+                     if (adminConfirmed().equals("true")){
+                 login("Admin", title);}
+                     else {
+                     jlblMessage.setText("Tillträdet är ej beviljat");
+                     }
                  break;
                  case "Personal":
                  login("staff", title);
@@ -288,6 +406,51 @@ public void login(String status, String title){
         StartFrame sf = new StartFrame();
         sf.setVisible(true);
     }//GEN-LAST:event_returnButtonActionPerformed
+
+    private void jbtnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSendActionPerformed
+        // TODO add your handling code here:
+        String title = jComboBox1.getSelectedItem().toString();
+
+        switch (title){
+            case "Student":
+            String password = getPassword("Student");
+            if (!password.equals("")){
+                sendPassword(txtForgottenPassword.getText(),password);
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+            else {
+                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+            }
+            break;
+            case "Teacher":
+            password = getPassword("Teacher");
+            if (!password.equals("")){
+                sendPassword(txtForgottenPassword.getText(),password);
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+            else {
+                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+            }
+            break;
+            case "Admin":
+            password = getPassword("Admin");
+            if (!password.equals("")){
+                sendPassword(txtForgottenPassword.getText(),password);
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+            else {
+                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+            }
+            break;
+            case "Stuff":
+            password = getPassword("Stuff");
+            if (!password.equals("")){
+                sendPassword(txtForgottenPassword.getText(),password);
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+            else {
+                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+            }
+            break;
+        }
+
+    }//GEN-LAST:event_jbtnSendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,13 +493,17 @@ public void login(String status, String title){
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jbtnSend;
     private javax.swing.JLabel jlblMessage;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton returnButton;
+    public static javax.swing.JTextField txtForgottenPassword;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,8 @@ package se.view;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import se.skola.MyConnection;
 import se.skola.TheDate;
@@ -45,10 +47,30 @@ public class RegisterFrame extends javax.swing.JFrame {
             ResultSet rs = check.executeQuery();
             
             if (rs.next()){
-              jlblMessage.setText("Användare finns redan registrerad!");
+              jlblMessage.setText("<html>Användare finns redan registrerad!</html>");
+            }
+            
+            else if (nameValidator(firstname)){
+            jlblMessage.setText("<html>Endast bokstäver är tillåtna på förnamn!</html>");
+            }
+            else if (nameValidator(lastname)){
+            jlblMessage.setText("<html>Endast bokstäver är tillåtna på efternamn!</html>");
+            }
+            
+            else if (alphanumericValidator(username)){
+                jlblMessage.setText("<html>Endast bokstäver och siffror är tillåtna på användarnamn!</html>");
+            }
+            
+            else if (emailValidator(email)){
+                jlblMessage.setText("<html>Du har angivit felaktig postadress!</html>");
+            }
+          
+              else if (passwordValidator(password)){
+                passwordNotifier(password);
             }
             
             else{
+                  jlblMessage.setText(null);
                 int confirm = JOptionPane.showConfirmDialog(this, 
                     "Är du säker på att du vill registrera användare?", 
                     "Register", JOptionPane.YES_NO_OPTION);
@@ -72,6 +94,81 @@ public class RegisterFrame extends javax.swing.JFrame {
             
             }catch (SQLException e) {
                 System.out.println(e.getMessage() + " I'm here");
+            }
+        }
+                
+                else {jlblMessage.setText("Fyll i tomma fält!"); }
+    }
+ 
+ public void checkAndInsertAdmin(String status){
+        String firstname = firstnameField.getText();
+        String lastname = lastnameField.getText();
+        String username = usernameField.getText();
+        String  email = emailField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        String entry = "false";
+        
+        String query ;
+        PreparedStatement ps;
+     
+         if(!firstname.equals("") && !lastname.equals("") && !username.equals("") && !email.equals("") && !password.equals("")){
+                                     try {
+                                         
+            String exist = "select Username,Email from "+status+" where Username = ? or Email = ?;";
+            PreparedStatement check ;
+            check = MyConnection.getConnection().prepareStatement(exist);
+            check.setString(1, username);
+            check.setString(2, email);
+            ResultSet rs = check.executeQuery();
+            
+            if (rs.next()){
+              jlblMessage.setText("<html>Användare finns redan registrerad!</html>");
+            }
+            
+             else if (nameValidator(firstname)){
+            jlblMessage.setText("<html>Endast bokstäver är tillåtna på förnamn!</html>");
+            }
+            else if (nameValidator(lastname)){
+            jlblMessage.setText("<html>Endast bokstäver är tillåtna på efternamn!</html>");
+            }
+            
+            else if (alphanumericValidator(username)){
+                jlblMessage.setText("<html>Endast bokstäver och siffror är tillåtna på användarnamn!</html>");
+            }
+            
+            else if (emailValidator(email)){
+                jlblMessage.setText("<html>Du har angivit felaktig postadress!</html>");
+            }
+          
+              else if (passwordValidator(password)){
+                passwordNotifier(password);
+            }
+            
+            else{
+                jlblMessage.setText(null);
+                int confirm = JOptionPane.showConfirmDialog(this, 
+                    "Är du säker på att du vill registrera användare?", 
+                    "Register", JOptionPane.YES_NO_OPTION);
+                if (confirm == 0){
+            query =  "INSERT INTO "+status+"(`Firstname`, `Lastname`, `Username`, `Email`, `Password`, `Entry`) VALUES (?,?,?,?,?,?);"; 
+            ps = MyConnection.getConnection().prepareStatement(query);
+           
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+            ps.setString(3, username);
+            ps.setString(4, email);
+            ps.setString(5, password);
+            ps.setString(6, entry);
+            ps.execute();
+            jlblMessage.setText(null);
+            
+            JOptionPane.showMessageDialog(this, "Användare har registrerats!",
+                    "Register", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+            }catch (SQLException e) {
+                System.out.println(e.getMessage() + " checkAndInsert");
             }
         }
                 
@@ -103,7 +200,6 @@ public class RegisterFrame extends javax.swing.JFrame {
         lastnameField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         jlblMessage = new javax.swing.JLabel();
@@ -169,21 +265,11 @@ public class RegisterFrame extends javax.swing.JFrame {
         firstnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
 
         lastnameField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        lastnameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastnameFieldActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel6.setText("Email:");
 
         emailField.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel9.setText("Klicka här för att logga in");
@@ -204,22 +290,19 @@ public class RegisterFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(203, 203, 203))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(229, 229, 229))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(225, 225, 225)
+                .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -235,13 +318,16 @@ public class RegisterFrame extends javax.swing.JFrame {
                                     .addComponent(lastnameField)
                                     .addComponent(firstnameField)
                                     .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(125, 125, 125))))
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(92, 92, 92)))))
+                .addGap(125, 125, 125))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,18 +351,17 @@ public class RegisterFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)))
+                .addGap(22, 22, 22)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -286,15 +371,16 @@ public class RegisterFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -321,7 +407,7 @@ public class RegisterFrame extends javax.swing.JFrame {
                 checkAndInsert("Teacher");
                 break;
             case "Admin":
-                checkAndInsert("Admin");
+                checkAndInsertAdmin("Admin");
                 break;
             case"Personal":
                 checkAndInsert("Staff");
@@ -331,7 +417,64 @@ public class RegisterFrame extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_registerButtonActionPerformed
+    
+    public boolean alphanumericValidator(String input){
+        String regex = "^[a-zA-Z0-9]+$";
+ 
+        Pattern pattern = Pattern.compile(regex);
+          Matcher matcher = pattern.matcher(input);
+          
+        return !matcher.matches();
+    }
+    public boolean emailValidator(String input){
+       // String regex = "^(.+)@(.+)$";
+       String regex= "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+          Matcher matcher = pattern.matcher(input);
+          
+        return !matcher.matches();
+    }
+    public boolean passwordValidator(String input){
+      //  String regex = "^(.+)@(.+)$";
+      String regex= "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+         Pattern pattern = Pattern.compile(regex);
+         Matcher matcher = pattern.matcher(input);
+         return !matcher.matches();
+    }
+    public void passwordNotifier(String password){
+        
+        if (!Pattern.compile("(?=.*[a-z])").matcher(password).find() ){
+             jlblMessage.setText("<html>Lösenordet skall innehålla minst en småbokstav!</html>");
+        }
+        if (!Pattern.compile("(?=.*[0-9])").matcher(password).find() ){
+            jlblMessage.setText("<html>Lösenordet skall innehålla minst en siffra!</html>");
+        }
+        if (!Pattern.compile("(?=.*[A-Z])").matcher(password).find()){
+            jlblMessage.setText("<html>Lösenordet skall innehålla minst en storbokstav!</html>");
 
+        }
+        if (!Pattern.compile("(?=.*[@#$%^&+=])").matcher(password).find()){
+            jlblMessage.setText("<html>Lösenordet skall innehålla minst ett specialtecken!</html>");
+
+        }
+        if (!Pattern.compile("(?=\\S+$)").matcher(password).find()){
+            jlblMessage.setText("<html>Mellanrum är ej tillåtna!</html>");
+
+        }
+        
+        if (!Pattern.compile(".{8,}").matcher(password).find()){
+            jlblMessage.setText("<html>Lösenordet skall vara minst 8 tecken lång</html>");
+        }
+    }
+    public boolean nameValidator(String input){
+       // String regex = "^(.+)@(.+)$";
+       String regex= "^[a-zA-Z\\\\s]+";
+        Pattern pattern = Pattern.compile(regex);
+          Matcher matcher = pattern.matcher(input);
+          
+        return !matcher.matches();
+    }
+    
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
@@ -390,7 +533,6 @@ public class RegisterFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
