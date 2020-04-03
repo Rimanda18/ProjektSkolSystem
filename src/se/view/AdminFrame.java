@@ -51,22 +51,23 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void getInfo(String person) {
 
-        if (student.equals(person)) {
-
-            query = "Select * from Student";
-
-        } else if (admin.equals(person)) {
-
-            query = "Select * from Admin";
-
-        } else if (lärare.equals(person)) {
-
-            query = "Select * from Teacher";
-
-        } else if (personal.equals(person)) {
-
-            query = "Select * from Staff";
-
+        if (null != person) {
+            switch (person) {
+                case student:
+                    query = "Select * from Student";
+                    break;
+                case admin:
+                    query = "Select * from Admin";
+                    break;
+                case lärare:
+                    query = "Select * from Teacher";
+                    break;
+                case personal:
+                    query = "Select * from Staff";
+                    break;
+                default:
+                    break;
+            }
         }
         try {
             ps = con.prepareStatement(query);
@@ -436,14 +437,14 @@ public class AdminFrame extends javax.swing.JFrame {
             String click = jTable1.getModel().getValueAt(selection, 0).toString();
 
             query = "DELETE FROM "+ person + " WHERE id" + person + " = " + click;
-           
-            int dialogButton = JOptionPane.showConfirmDialog(null, "Är du säker att du vill radera " + person + " , ID:" + click, "WARNING", JOptionPane.YES_NO_OPTION);
+
+            int dialogButton = JOptionPane.showConfirmDialog(null, "Är du säker att du vill radera " + person + ", id: " + click, "WARNING", JOptionPane.YES_NO_OPTION);
             if (dialogButton == JOptionPane.YES_OPTION) {
                 try {
                     ps = con.prepareStatement(query);
                     ps.executeUpdate();
 
-                    JOptionPane.showMessageDialog(null, person + " med ID:" + click + "har raderats!");
+                    JOptionPane.showMessageDialog(null, person + ", id:" + click + "har raderats!");
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AdminFrame.class.getName()).log(Level.SEVERE, null, ex);

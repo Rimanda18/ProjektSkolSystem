@@ -42,6 +42,7 @@ public class AdminEmailFrame extends javax.swing.JFrame {
     }
 
     public void getAllMessages(){
+
         con = MyConnection.getConnection();
         
         query = "SELECT * FROM Message";
@@ -56,15 +57,16 @@ public class AdminEmailFrame extends javax.swing.JFrame {
                 messageList.add(message);
             } if(messageList.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Du har inga meddelanden!");
+            }else{
+                printMessage(0);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminEmailFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-         printMessage(0);
     }
 
     public void printMessage(int index) {
-            
+          
         if (index < messageList.size() && index > messageList.indexOf(0)) {
             idField.setText(messageList.get(index).getId());
             dateField.setText(messageList.get(index).getDate());

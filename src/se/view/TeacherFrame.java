@@ -36,6 +36,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         initComponents(); 
         this.setLocationRelativeTo(null); 
         con = MyConnection.getConnection();
+        idField.enable(false);
     }
     
     public String user;

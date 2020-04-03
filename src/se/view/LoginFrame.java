@@ -30,7 +30,7 @@ public void login(String status, String title){
             check.setString(1, username);
             check.setString(2, password);
             ResultSet rs = check.executeQuery();
-            System.out.println("Ahhhaaa"); //Vad menar du med Ahhhaaa? :-)
+
             if (rs.next()){
                 
                 this.setVisible(false);
@@ -52,7 +52,7 @@ public void login(String status, String title){
                     break;
                     
                     case "Admin":
-                    AdminFrame af = new AdminFrame(); //här behöver vi kontroller
+                    AdminFrame af = new AdminFrame(); 
                     this.setVisible(false);
                     af.setVisible(true);
                     break;
