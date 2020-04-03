@@ -189,19 +189,18 @@ public class StaffFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonMouseClicked
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-       // ImageIcon imageVakmastare = new ImageIcon("NetBeansProjects\\ProjektSkolSystem\\src\\se\\image\\Vakmastare.jpg");
-         //  jLabelImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/se/image/Vakmastare.jpg")));
-          
-        //ImageIcon imageLarare = new ImageIcon("https://imgur.com/a/o3ahuRV");
+        ImageIcon imageVakmastare = new ImageIcon("src\\se\\image\\Vakmastare.jpg");
+        ImageIcon imageLarare = new ImageIcon("src\\se\\image\\larare.png");
+
         String title = jComboBox1.getSelectedItem().toString();
 
         if (null != title) {
             switch (title) {
                 case "Vaktmästare":
-                    jLabelImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/se/image/Vakmastare.jpg")));
+                     jLabelImg.setIcon(imageVakmastare);
                     break;
                 case "Sjuksyster":
-                  //  jLabelImg.setIcon(imageLarare);
+                      jLabelImg.setIcon(imageLarare);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Fel har uppkommit!");
@@ -210,8 +209,6 @@ public class StaffFrame extends javax.swing.JFrame {
         } else {
             jLabelImg.setIcon(null);
         }
-
-        //}
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
