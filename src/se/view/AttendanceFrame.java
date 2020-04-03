@@ -434,10 +434,7 @@ public class AttendanceFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
-        // TODO add your handling code here:
-        TeacherFrame tf = new TeacherFrame();
         this.setVisible(false);
-        tf.setVisible(true);
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnShow2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnShow2ActionPerformed
