@@ -34,6 +34,7 @@ public class StartFrame extends javax.swing.JFrame {
         con = MyConnection.getConnection();
         this.user = "user";
         this.mail = "info@newton.com";
+        textArea.setEditable(false);
     }
 
     /**
@@ -481,18 +482,21 @@ public class StartFrame extends javax.swing.JFrame {
     private void contactLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactLabelMouseClicked
         textArea.setText("                                        \n"
                          + "\n                       Kontakt      \n"
+                         + "                                      \n"                       
+                         + "              Rektor\n"
+                         + "              Namn: Anton Meck\n"
+                         + "              Email: Anton@admin.com\n"
+                         + "              Tel: 08-548 99 34 00\n"
                          + "                                      \n"
                          + "                                      \n"
-                         + "               Rektor\n"
-                         + "               Namn: Anton Meck\n"
-                         + "               Email: Anton@admin.com\n"
-                         + "               Tel: 08-548 99 34 00\n"
-                         + "                                      \n"
-                         + "                                      \n"
-                         + "               Rektor biträde\n"
-                         + "               Namn: Ritva Stig\n"
-                         + "               Email: Ritva@admin.com\n"
-                         + "               Tel: 08-548 99 34 01\n");
+                         + "              Rektor biträde\n"
+                         + "              Namn: Ritva Stig\n"
+                         + "              Email: Ritva@admin.com\n"
+                         + "              Tel: 08-548 99 34 01\n"
+                         + "                                       \n"
+                         + "                                       \n"
+                         + "              Eller skicka meddelande länst \n"
+                         + "              ner på sidan till info@newton.com\n");
     }//GEN-LAST:event_contactLabelMouseClicked
 
     private void educationLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_educationLabelMouseEntered
@@ -584,14 +588,14 @@ public class StartFrame extends javax.swing.JFrame {
         textArea.setText("");
         textArea.setText("\n           Våra utbildningar          " + "\n"
                        + "                                             \n"
-                       + "Utbildningar vi erbjuder är utformde för     \n"
-                       + "att ge stor kunskap samt möjlighet att       \n"
-                       + "anpassa sig till framtidens arbetsmarknad.   \n"
-                       + "                                             \n"
-                       + "Vi erbjuder utbildningar och kurser som kan  \n"
-                       + "förändra och förbättra framtidsutsikt.       \n"
-                       + "                                             \n"   
-                       + "Väl etablerade kurser med fantastiska pedagoger.");
+                       +" Utbildningar vi erbjuder är utformde för     \n"
+                       +" att ge stor kunskap samt möjlighet att       \n"
+                       +" anpassa sig till framtidens arbetsmarknad.   \n"
+                       +"                                             \n"
+                       +" Vi erbjuder utbildningar och kurser som kan  \n"
+                       +" förändra och förbättra framtidsutsikt.       \n"
+                       +"                                             \n"   
+                       +" Väl etablerade kurser med fantastiska pedagoger.");
         
     }//GEN-LAST:event_educationLabelMouseClicked
 
@@ -599,30 +603,29 @@ public class StartFrame extends javax.swing.JFrame {
         textArea.setText("");
         textArea.setText("\n            Skolinformation           " + "\n"
                        + "                                             \n"
-                       + "Folkhälsomyndigheten rekommenderar att \n"
-                       + "undervisningen i gymnasieskolan inte ska \n"
-                       + "bedrivas i skolans lokaler. Med tanken på \n"
-                       + "att försöka minska risken för (Covid-19) \n"
-                       + "har vi just nu alla vår kurser på distans. \n"
-                       + "                                           \n"
-                       + "Våra pedagoger finns tillgängliga på skoltid\n"
-                       + "där man kan kontakta vid behov eller extra stöd.\n"   
-                       + "Ni är alltid välkomna att kontakta oss.");
+                       +" Folkhälsomyndigheten rekommenderar att \n"
+                       +" undervisningen i gymnasieskolan inte ska \n"
+                       +" bedrivas i skolans lokaler. Med tanken på \n"
+                       +" att försöka minska risken för (Covid-19) \n"
+                       +" har vi just nu alla vår kurser på distans. \n"
+                       +"                                           \n"
+                       +" Våra pedagoger finns tillgängliga på skoltid\n"
+                       +" där man kan kontakta vid behov eller extra stöd.\n"   
+                       +" Ni är alltid välkomna att kontakta oss.");
     }//GEN-LAST:event_shoolInfoLabelMouseClicked
 
     private void caregiverLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caregiverLabelMouseClicked
         textArea.setText("");
         textArea.setText("\n           Vårdnadshavare          " + "\n"
                        + "                                             \n"
-                       + "Frånvaroanmälan ska ske före första lektionen   \n"
-                       + "och samma dag som eleven inte kan närvara i skolan. \n"
-                       + "Det krävs en anmälan varje dag då studerand inte \n"
-                       + "kan närvara. Vid eventuella felaktigheter kontakta\n"
-                       + "elevens lärare för justering.\n"
-                       + "                                           \n"
-                       + "Har du möjligen frågor eller funderingar så \n"
-                       + "är du välkommen att kontakta oss.\n"   
-                       + "    ");
+                       +" Frånvaroanmälan ska ske före första lektionen   \n"
+                       +" och samma dag som eleven inte kan närvara i skolan. \n"
+                       +" Det krävs en anmälan varje dag då studerand inte \n"
+                       +" kan närvara. Vid eventuella felaktigheter kontakta\n"
+                       +" elevens lärare för justering.\n"
+                       +"                                           \n"
+                       +" Har du möjligen frågor eller funderingar så \n"
+                       +" är du välkommen att kontakta oss.");
     }//GEN-LAST:event_caregiverLabelMouseClicked
 
     private void adressLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adressLabelMouseEntered
@@ -674,19 +677,20 @@ public class StartFrame extends javax.swing.JFrame {
 
     private void OmSidanLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OmSidanLabelMouseClicked
         textArea.setText("");
-        textArea.setText("\n              Om hemsidan            " + "\n"
+        textArea.setText("\n                   Om hemsidan        " + "\n"
                        + "                                             \n"
-                       + "Denna webplats är strukturerad för att hantera \n"
-                       + "olika inloggningar samt underlätta skolhanteringen.\n"
+                       + " Denna webplats är strukturerad för att hantera \n"
+                       + " olika inloggningar samt underlätta skolhanteringen.\n"
                        + "                                                   \n"
-                       + "För att kunna logga in och kunna se information\n"
-                       + "krävs ett godkännande. Du kan välja att registrera \n"
-                       + "dig och vänta på ett godkännande eller skicka dina \n"
-                       + "uppgifter via ett meddelande längst ner på sidan.\n"
-                       + "Skicka då dina uppgifter samt eventuell kurs.\n"
+                       + " För att kunna logga in och kunna se information\n"
+                       + " krävs ett godkännande. Du kan välja att registrera \n"
+                       + " dig och vänta på ett godkännande eller skicka dina \n"
+                       + " uppgifter via ett meddelande längst ner på sidan.\n"
+                       + "                                                  \n"
+                       + " Skicka då dina uppgifter samt eventuell kurs.\n"
                        + "                                                        \n"
-                       + "Har du möjligen frågor eller funderingar så \n"
-                       + "är du välkommen att kontakta oss.\n"   
+                       + " Har du möjligen frågor eller funderingar så \n"
+                       + " är du välkommen att kontakta oss.\n"   
                        + "    ");
     }//GEN-LAST:event_OmSidanLabelMouseClicked
 
