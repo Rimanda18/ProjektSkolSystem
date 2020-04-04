@@ -472,14 +472,14 @@ public class AdminFrame extends javax.swing.JFrame {
                         switch (person) {
                             case student:
                                 query = "select * from Student where idStudent = " + click;
-
                                 try {
                                     ps = con.prepareStatement(query);
                                     rs = ps.executeQuery();
 
                                     if (rs.next()) {
                                         asf.setVisible(true);
-                                        
+                                        asf.getInfoKurs(click);
+
                                         asf.idField.setText(click);
 
                                         String firstname = rs.getString("Firstname");
@@ -506,6 +506,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
                             case lärare:
                                 query = "select * from Teacher where idTeacher = " + click;
+                                atf.getInfoKurs(click);
 
                                 try {
                                     ps = con.prepareStatement(query);

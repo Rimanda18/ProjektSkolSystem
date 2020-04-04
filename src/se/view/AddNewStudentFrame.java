@@ -53,18 +53,18 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         uNameField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        match1ACheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        match2bCheckBox = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        math1A = new javax.swing.JCheckBox();
+        math3C = new javax.swing.JCheckBox();
+        math2B = new javax.swing.JCheckBox();
+        eng1A = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         subjectTextArea = new javax.swing.JTextArea();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
+        eng2A = new javax.swing.JCheckBox();
+        swe1 = new javax.swing.JCheckBox();
+        swe2 = new javax.swing.JCheckBox();
+        swe3 = new javax.swing.JCheckBox();
+        sam2B = new javax.swing.JCheckBox();
+        ekAA = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         addButton = new javax.swing.JButton();
@@ -112,55 +112,90 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel8.setText("Användarnamn:");
 
-        match1ACheckBox1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        match1ACheckBox1.setText("Matematik 1A");
-        match1ACheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        math1A.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        math1A.setText("Matematik 1A");
+        math1A.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                match1ACheckBox1ActionPerformed(evt);
+                math1AActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox2.setText("Matematik 3C");
-
-        match2bCheckBox.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        match2bCheckBox.setText("Matematik 2B");
-        match2bCheckBox.addActionListener(new java.awt.event.ActionListener() {
+        math3C.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        math3C.setText("Matematik 3C");
+        math3C.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                match2bCheckBoxActionPerformed(evt);
+                math3CActionPerformed(evt);
             }
         });
 
-        jCheckBox4.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox4.setText("Engelska 1A");
+        math2B.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        math2B.setText("Matematik 2B");
+        math2B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                math2BActionPerformed(evt);
+            }
+        });
+
+        eng1A.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        eng1A.setText("Engelska 1A");
+        eng1A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eng1AActionPerformed(evt);
+            }
+        });
 
         subjectTextArea.setColumns(20);
         subjectTextArea.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         subjectTextArea.setRows(5);
         jScrollPane1.setViewportView(subjectTextArea);
 
-        jCheckBox5.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox5.setText("Engelska 2A");
-
-        jCheckBox6.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox6.setText("Svenska 1");
-        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+        eng2A.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        eng2A.setText("Engelska 2A");
+        eng2A.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox6ActionPerformed(evt);
+                eng2AActionPerformed(evt);
             }
         });
 
-        jCheckBox7.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox7.setText("Svenska 2");
+        swe1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        swe1.setText("Svenska 1");
+        swe1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                swe1ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox8.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox8.setText("Svenska 3");
+        swe2.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        swe2.setText("Svenska 2");
+        swe2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                swe2ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox9.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox9.setText("Samhäll 2B");
+        swe3.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        swe3.setText("Svenska 3");
+        swe3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                swe3ActionPerformed(evt);
+            }
+        });
 
-        jCheckBox10.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        jCheckBox10.setText("Ekonomi AA");
+        sam2B.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        sam2B.setText("Samhäll 2B");
+        sam2B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sam2BActionPerformed(evt);
+            }
+        });
+
+        ekAA.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        ekAA.setText("Ekonomi AA");
+        ekAA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ekAAActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Valda kurser:");
@@ -186,6 +221,11 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jButton1.setText("Uppdatera");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel10.setText("ID:");
@@ -237,18 +277,18 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jCheckBox4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(match2bCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(match1ACheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBox8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(eng1A, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(math2B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(math1A, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(math3C, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eng2A, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(swe2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ekAA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sam2B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(swe3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(67, 67, 67))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox6)
+                        .addComponent(swe1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -268,25 +308,25 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(match1ACheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(math1A, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(match2bCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(math2B, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(math3C, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(eng1A, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(eng2A, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(swe1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(swe2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(swe3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(sam2B, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ekAA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(90, 90, 90))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -297,7 +337,6 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10))
-                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(36, 36, 36)
@@ -320,7 +359,7 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel7))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,9 +419,15 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_uNameFieldActionPerformed
 
-    private void match1ACheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_match1ACheckBox1ActionPerformed
+    private void math1AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math1AActionPerformed
+            if(math1A.isSelected()){
+           subjectTextArea.append(math1A.getText() + "\n");
 
-    }//GEN-LAST:event_match1ACheckBox1ActionPerformed
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_math1AActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         String firstname = fNameField.getText();
@@ -395,17 +440,136 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         this.setVisible(false);
+        reset();
     }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
+    private void swe1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox6ActionPerformed
+         if(swe1.isSelected()){
+           subjectTextArea.append(swe1.getText() + "\n");
 
-    private void match2bCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_match2bCheckBoxActionPerformed
-       
-    }//GEN-LAST:event_match2bCheckBoxActionPerformed
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_swe1ActionPerformed
 
-    
+    private void math2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math2BActionPerformed
+        if(math2B.isSelected()){
+           subjectTextArea.append(math2B.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_math2BActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void math3CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math3CActionPerformed
+        // TODO add your handling code here:
+         if(math3C.isSelected()){
+           subjectTextArea.append(math3C.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_math3CActionPerformed
+
+    private void eng1AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng1AActionPerformed
+        // TODO add your handling code here:
+         if(eng1A.isSelected()){
+           subjectTextArea.append(eng1A.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_eng1AActionPerformed
+
+    private void eng2AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng2AActionPerformed
+        // TODO add your handling code here:
+         if(eng2A.isSelected()){
+           subjectTextArea.append(eng2A.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_eng2AActionPerformed
+
+    private void swe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe2ActionPerformed
+        // TODO add your handling code here:
+         if(swe2.isSelected()){
+           subjectTextArea.append(swe2.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_swe2ActionPerformed
+
+    private void swe3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe3ActionPerformed
+        // TODO add your handling code here:
+         if(swe3.isSelected()){
+           subjectTextArea.append(swe3.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_swe3ActionPerformed
+
+    private void sam2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sam2BActionPerformed
+        // TODO add your handling code here:
+         if(sam2B.isSelected()){
+           subjectTextArea.append(sam2B.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_sam2BActionPerformed
+
+    private void ekAAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekAAActionPerformed
+        // TODO add your handling code here:
+         if(ekAA.isSelected()){
+           subjectTextArea.append(ekAA.getText() + "\n");
+
+        }else{
+            
+            
+            }
+    }//GEN-LAST:event_ekAAActionPerformed
+
+    public void update() {
+
+        String idStudent = idField.getText();
+        
+        if (idField.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Updatering misslyckades!");
+            reset();
+        } else {
+            query = "Update Student set Firstname ='" + fNameField.getText() + "', Lastname ='" + lNameField.getText() + "', Username ='"
+                    + uNameField.getText() + "', Email ='" + mailField.getText() + "', Password ='"
+                    + pwField.getText() + "' WHERE idStudent = '" + idStudent + "'";
+
+            try {
+                ps = con.prepareStatement(query);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Updatering lyckades!");
+                reset();
+            } catch (SQLException ex) {
+                Logger.getLogger(AddNewStaffFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
      public int insert(String firstname, String lastname, String username, String email, String password) {
         
         int idStudent = 0;
@@ -460,6 +624,49 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         }
         return idStudent;
      }
+      public void getInfoKurs(String click) {
+        
+       //  ArrayList<String> kurs = new ArrayList<String>();
+
+        
+        query = "SELECT Coursename FROM Course\n" 
+                + "LEFT JOIN Course_has_Student ON Course.idCourse = Course_has_Student.Course_idCourse\n" 
+               +  "LEFT JOIN Student ON Course_has_Student.Student_idStudent = Student.idStudent\n" 
+                + "WHERE Student.idStudent =" + click;
+              
+        try {
+            ps = con.prepareStatement(query);           
+            rs = ps.executeQuery();
+            
+           
+            while(rs.next()){
+            String kurs = rs.getString("Coursename");
+            
+            subjectTextArea.append(kurs + "\n");
+            
+
+           }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    
+          
+
+    }
+         private void reset() {
+
+        fNameField.setText("");
+        lNameField.setText("");
+        uNameField.setText("");
+        mailField.setText("");
+        pwField.setText("");
+        subjectTextArea.setText("");
+
+    }
+
+   
      
     
     /**
@@ -495,17 +702,12 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton closeButton;
+    private javax.swing.JCheckBox ekAA;
+    private javax.swing.JCheckBox eng1A;
+    private javax.swing.JCheckBox eng2A;
     public javax.swing.JTextField fNameField;
     public javax.swing.JTextField idField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -521,10 +723,15 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField lNameField;
     public javax.swing.JTextField mailField;
-    private javax.swing.JCheckBox match1ACheckBox1;
-    private javax.swing.JCheckBox match2bCheckBox;
+    private javax.swing.JCheckBox math1A;
+    private javax.swing.JCheckBox math2B;
+    private javax.swing.JCheckBox math3C;
     public javax.swing.JTextField pwField;
+    private javax.swing.JCheckBox sam2B;
     private javax.swing.JTextArea subjectTextArea;
+    private javax.swing.JCheckBox swe1;
+    private javax.swing.JCheckBox swe2;
+    private javax.swing.JCheckBox swe3;
     public javax.swing.JTextField uNameField;
     // End of variables declaration//GEN-END:variables
 }
