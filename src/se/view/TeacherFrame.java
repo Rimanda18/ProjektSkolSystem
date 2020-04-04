@@ -26,7 +26,10 @@ public class TeacherFrame extends javax.swing.JFrame {
     private String idStudent;
     String date;
     TheDate dt = new TheDate();
+    
     private int id;
+    private String firstname;
+    private String lastname;
     /**
      * Creates new form TeacherFrame
      */
@@ -49,7 +52,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         idField.enable(false);
         this.user = user;
         
-        String idTeacher = "SELECT Teacher.idTeacher from Teacher WHERE Username = '" + this.user + "'";
+        String idTeacher = "SELECT Teacher.idTeacher, Teacher.Firstname, Teacher.Lastname from Teacher WHERE Username = '" + this.user + "'";
 
         try {
                 ps = con.prepareStatement(idTeacher);
@@ -57,12 +60,15 @@ public class TeacherFrame extends javax.swing.JFrame {
 
             if (rs.next()) {
                 this.id = rs.getInt("Teacher.idTeacher");
+                this.firstname = rs.getString("Firstname");
+                this.lastname = rs.getString("Lastname");
                 getInfo(id);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        teacherNameLabel.setText("Välkommen " + firstname + " " + lastname);
     }
 
     /**
@@ -202,7 +208,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(teacherNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(teacherNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(titleLabel)
@@ -400,7 +406,7 @@ public class TeacherFrame extends javax.swing.JFrame {
 
     private void getInfo(int id) {
     
-        query = "SELECT idStudent, Student.Firstname, Student.Lastname, Student.Email, Coursename FROM Course \n"
+        query = "SELECT Distinct idStudent, Student.Firstname, Student.Lastname, Student.Email, Coursename FROM Course \n"
                 + "LEFT JOIN Teacher ON Course.Teacher_idTeacher = Teacher.idTeacher\n"
                 + "LEFT JOIN Course_has_Student ON Course.idCourse = Course_has_Student.Course_idCourse\n"
                 + "LEFT JOIN Student ON Course_has_Student.Student_idStudent = Student.idStudent\n"
@@ -574,7 +580,7 @@ public class TeacherFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
+    public javax.swing.JTable jTable2;
     private javax.swing.JButton jbtnAttendence;
     private javax.swing.JTextField lastnameField;
     private javax.swing.JLabel lastnameLabel;

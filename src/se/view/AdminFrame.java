@@ -654,7 +654,9 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        System.exit(0);
+        this.setVisible(false);
+        StartFrame sf = new StartFrame();
+        sf.setVisible(true);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void studentInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentInfoButtonActionPerformed

@@ -64,7 +64,6 @@ public void login(String status, String title){
                     AdminFrame af = new AdminFrame(); 
                     this.setVisible(false);
                     af.setVisible(true); 
-      
                     break;
                     
                     case "Personal":
@@ -380,7 +379,7 @@ public void login(String status, String title){
              switch (title){
                  case "Student":
                      
-                 login("student", title);
+                 login("Student", title);
                  break;
                  case "Lärare":
                  login("Teacher", title);
@@ -393,7 +392,7 @@ public void login(String status, String title){
                      }
                  break;
                  case "Personal":
-                 login("staff", title);
+                 login("Staff", title);
                  break;
              }
     }//GEN-LAST:event_loginButtonActionPerformed
@@ -440,8 +439,8 @@ public void login(String status, String title){
                 jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
             }
             break;
-            case "Stuff":
-            password = getPassword("Stuff");
+            case "Staff":
+            password = getPassword("Staff");
             if (!password.equals("")){
                 sendPassword(txtForgottenPassword.getText(),password);
                 jlblMessage.setText("<html>Lösenordet har skickats</html>");}
