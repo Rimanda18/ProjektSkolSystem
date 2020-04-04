@@ -472,14 +472,14 @@ public class AdminFrame extends javax.swing.JFrame {
                         switch (person) {
                             case student:
                                 query = "select * from Student where idStudent = " + click;
+
                                 try {
                                     ps = con.prepareStatement(query);
                                     rs = ps.executeQuery();
 
                                     if (rs.next()) {
                                         asf.setVisible(true);
-                                        asf.getInfoKurs(click);
-
+                                        
                                         asf.idField.setText(click);
 
                                         String firstname = rs.getString("Firstname");
@@ -506,7 +506,6 @@ public class AdminFrame extends javax.swing.JFrame {
 
                             case lärare:
                                 query = "select * from Teacher where idTeacher = " + click;
-                                atf.getInfoKurs(click);
 
                                 try {
                                     ps = con.prepareStatement(query);
@@ -547,6 +546,10 @@ public class AdminFrame extends javax.swing.JFrame {
 
                                     if (rs.next()) {
                                         aaf.setVisible(true);
+                                        aaf.addButton.setVisible(false);
+                                        aaf.jButton1.setVisible(true);
+                                        
+                                        aaf.textFieldID.setText(click);
 
                                         String firstname = rs.getString("Firstname");
                                         aaf.fNameField.setText(firstname);
@@ -679,7 +682,10 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addnewTeacherButtonActionPerformed
 
     private void addNewAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewAdminButtonActionPerformed
-         aaf.setVisible(true);
+          aaf.setVisible(true);
+         aaf.jButton1.setVisible(false);
+         aaf.addButton.setVisible(true);
+         aaf.reset();
     }//GEN-LAST:event_addNewAdminButtonActionPerformed
 
     private void staffButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffButtonActionPerformed

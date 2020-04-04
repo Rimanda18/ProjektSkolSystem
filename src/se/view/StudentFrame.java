@@ -21,12 +21,13 @@ import se.skola.MyConnection;
  */
 public class StudentFrame extends javax.swing.JFrame implements Runnable {
 
-    private static String username;
+    private static String username = null;
     private static String name;
     private static String lastname;
-    private static String email;
+    private static String email = null;
     private static int ID;
     private static String idStudent;
+    private static String password;
 
     Thread t = null;
     int hours = 0;
@@ -39,51 +40,104 @@ public class StudentFrame extends javax.swing.JFrame implements Runnable {
     ResultSet rs;
     PreparedStatement ps;
 
+           
+        String query = null;
+        
+        
+         
+
+        //and Password = '" + password + "'"
+            
+          
     private String QUERYCLASS;
      
-    StudentFrame(String userStudent) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }       
-
-    @SuppressWarnings("OverridableMethodCallInConstructor")
-
-    public StudentFrame(int ID, String name, String lastname, String username, String email) {
+    StudentFrame(String userStudent, String password) {
         initComponents();
 
         this.setLocationRelativeTo(null);
-        
-
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.ID = ID;
-        this.idStudent = Integer.toString(ID);
-        
-        QUERYCLASS = "SELECT course.idCourse as 'Kursnummer', course.Coursename as 'Kursnamn', concat(teacher.firstname," + "' '" + ", teacher.lastname) as 'Lärare' FROM course_has_student"
-            + " join course on course_has_student.Course_idCourse = course.idCourse "
-            + "join student on course_has_student.Student_idStudent = student.idStudent "
-            + "join teacher on course.Teacher_idTeacher = teacher.idTeacher where student.idStudent = " + "'" + idStudent + "'";
-        
-
-        jLabel11.setText(idStudent);
-        jLabel5.setText(name + " " + lastname);
-        jLabel9.setText(username);
-        jLabel7.setText(email);
-        jLabel3.setText(name);
-
-        con = MyConnection.getConnection();
-
         try {
-            ps = con.prepareStatement(QUERYCLASS);
+            username = userStudent;
+            this.password = password;
+            con = MyConnection.getConnection();
+            query = "Select * From Student Where Username = '" + username + "' and Password = '" + this.password + "'";
+            ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        t = new Thread(this);
-        t.start();
+           
+            if(rs.next())
+            ID = rs.getInt("idStudent");
+            idStudent = Integer.toString(ID);
+            name = rs.getString("Firstname");
+            lastname = rs.getString("Lastname");
+            username = rs.getString("Username");
+            email = rs.getString("Email");
+            QUERYCLASS = "SELECT course.idCourse as 'Kursnummer', course.Coursename as 'Kursnamn', concat(teacher.firstname," + "' '" + ", teacher.lastname) as 'Lärare' FROM course_has_student"
+                    + " join course on course_has_student.Course_idCourse = course.idCourse "
+                    + "join student on course_has_student.Student_idStudent = student.idStudent "
+                    + "join teacher on course.Teacher_idTeacher = teacher.idTeacher where student.idStudent = " + "'" + idStudent + "'";
+            
 
-    }
+            
+            jLabel11.setText(idStudent);
+            
+            jLabel5.setText(name + " " + lastname);
+            jLabel9.setText(username);
+            jLabel7.setText(email);
+            jLabel3.setText(name);
+            con = MyConnection.getConnection();
+            try {
+                ps = con.prepareStatement(QUERYCLASS);
+                rs = ps.executeQuery();
+                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            t = new Thread(this);
+            t.start();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }       
+
+ //   @SuppressWarnings("OverridableMethodCallInConstructor")
+
+//    public StudentFrame(int ID, String name, String lastname, String username, String email) {
+//        initComponents();
+//
+//        this.setLocationRelativeTo(null);
+//        
+//
+//        this.name = name;
+//        this.lastname = lastname;
+//        this.email = email;
+//        this.ID = ID;
+//        this.idStudent = Integer.toString(ID);
+//        
+//        QUERYCLASS = "SELECT course.idCourse as 'Kursnummer', course.Coursename as 'Kursnamn', concat(teacher.firstname," + "' '" + ", teacher.lastname) as 'Lärare' FROM course_has_student"
+//            + " join course on course_has_student.Course_idCourse = course.idCourse "
+//            + "join student on course_has_student.Student_idStudent = student.idStudent "
+//            + "join teacher on course.Teacher_idTeacher = teacher.idTeacher where student.idStudent = " + "'" + idStudent + "'";
+//        
+//
+//        jLabel11.setText(idStudent);
+//        jLabel5.setText(name + " " + lastname);
+//        jLabel9.setText(username);
+//        jLabel7.setText(email);
+//        jLabel3.setText(name);
+//
+//        con = MyConnection.getConnection();
+//
+//        try {
+//            ps = con.prepareStatement(QUERYCLASS);
+//            rs = ps.executeQuery();
+//            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        t = new Thread(this);
+//        t.start();
+//
+//    }
 
     
 
@@ -327,7 +381,7 @@ public class StudentFrame extends javax.swing.JFrame implements Runnable {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StudentFrame(ID, name, lastname, username, email).setVisible(true);
+                new StudentFrame(username, password).setVisible(true);
             }
         });
     }

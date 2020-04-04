@@ -47,7 +47,8 @@ public void login(String status, String title){
                     
                     case "Student":
                     String userStudent = usernameField.getText();
-                    StudentFrame sf = new StudentFrame(userStudent);
+                    String userPassword = passwordField.getText();
+                    StudentFrame sf = new StudentFrame(userStudent, password);
                     this.setVisible(false);
                     sf.setVisible(true);
                     break;
