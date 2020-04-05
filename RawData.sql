@@ -2,7 +2,7 @@
 
 -- Admin
 -- idAdmin,	Firstname, Lastname,  Username, Email, Password, Entry
-INSERT INTO `Admin` VALUES (1,'Anton','Meck','Meck99','Ritva@ad.com','9080','true'),(2,'Ritva','Stig','Rig','Ritva@gmail.com','4050','true');
+INSERT INTO `Admin` VALUES (1,'Anton','Meck','Meck99','Anton@admin.com','9080','true'),(2,'Ritva','Stig','Rig','Ritva@admin.com','4050','true');
 
 -- Student
 -- idStudent, Firstname, Lastname,  Username, Email, Password
@@ -21,8 +21,8 @@ INSERT INTO `Student` VALUES (1,'Evelina','Dalström','Eve','Evelina@gmail.com',
                              						
 -- Teacher
 -- idTeacher, Firstname, Lastname,  Username, Email, Password
-INSERT INTO `Teacher` VALUES (1,'Daniel','Vikström','Danne','Daniel@gmail.com','3434'),
-							 (2,'Anki','Antonsson','An95','Anki@gmail.com','6767'),
+INSERT INTO `Teacher` VALUES (1,'Daniel','Vikström','Danne','Daniel@teacher.com','3434'),
+							 (2,'Anki','Antonsson','An95','Anki@teacher.com','6767'),
                              (3,'Siv','Bernad','Sivan','Siv@teacher.com','9999'),
                              (4,'Per','Albom','P79','Per@teacher.com','7878'),
                              (5,'Dalia','Mattson','Dal','Dalia@teacher.com','9090'),
@@ -30,15 +30,16 @@ INSERT INTO `Teacher` VALUES (1,'Daniel','Vikström','Danne','Daniel@gmail.com',
                              
    -- Staff
    -- idStaff,Profession, Firstname, Lastname,  Username, Email, Password
-   INSERT INTO `staff` VALUES (1,'Vaktmästare','Ingvar','Andersson',' Ing','Ingvar@gmail.com','8282'),
-							  (2,'Sjuksyster','Madeleine','Strand',' Madde','Madeleine@gmail.com','9376'),
-							  (3,'Lokalvårdare','Ayna','Birgersson',' Aya','Ayna@gmail.com','2112'),
-                              (4,'Lokalvårdare','Bengt','Engström',' Ben','Bengt@gmail.com','7447'),
-                              (5,Null,'Andre','Vendel',' An','Andre@gmail.com','2345');
+   INSERT INTO `Staff` VALUES (1,'Vaktmästare','Ingvar','Andersson','Ing','Ingvar@gmail.com','8282'),
+							  (2,'Sjuksyster','Madeleine','Strand','Madde','Madeleine@gmail.com','9376'),
+							  (3,'Lokalvårdare','Ayna','Birgersson','Aya','Ayna@gmail.com','2112'),
+                              (4,'Lokalvårdare','Bengt','Engström','Ben','Bengt@gmail.com','7447'),
+                              (5,Null,'Andre','Vendel','An','Andre@gmail.com','2345');
                               
 -- Course
--- idCourse, Coursename, Teacher_idTeacher
-INSERT INTO `Course` VALUES (1,'Mathematics 1A',1),(2,'English 1A',2),(3,'English 2A',6),(4,'Swedish 1',3),(5,'Swedish 2',3),(6,'Swedish 3',3),(7,'Mathematics 2B',1),(8,'Mathematics  3C',1),(9,'Society B2',4),(10,'EconomyAA',5);
+-- idCourse, Coursename
+INSERT INTO `Course` VALUES (1,'Matematik 1A'),(2,'Engelska 1A'),(3,'Engelska 2A'),(4,'Svenska 1'),(5,'Svenska 2'),
+(6,'Svenska 3'),(7,'Matematik 2B'),(8,'Matematik  3C'),(9,'Samhäll B2'),(10,'Ekonomi AA');
 
 -- Admin_has_Course
 -- Course_idCourse, Admin_idAdmin
@@ -52,6 +53,15 @@ INSERT INTO `Course_has_Student` VALUES (1,1,null,null,null),(3,1,null,null,null
                                         (5,5,null,null,null),(9,5,null,null,null),(2,6,null,null,null),(4,6,null,null,null),(5,6,null,null,null),(6,6,null,null,null),(7,6,null,null,null),(9,6,null,null,null),
                                         (1,7,null,null,null),(3,7,null,null,null),(6,7,null,null,null),(8,7,null,null,null),(2,8,null,null,null),(7,8,null,null,null),(10,8,null,null,null),(2,9,null,null,null),
                                         (7,9,null,null,null),(10,9,null,null,null),(1,10,null,null,null),(2,10,null,null,null),(7,10,null,null,null),(1,11,null,null,null),(3,11,null,null,null),(8,11,null,null,null),
-                                        (1,12,null,null,null),(2,12,null,null,null),(6,12,null,null,null),(9,12,null,null,null);
+                                        (1,12,null,null,null),(2,12,null,null,null),(6,12,null,null,null),(9,12,null,null,null);								
+
+-- Teacher
+-- Course_idCourse, Student_idStudent
+INSERT INTO `school.db`.`Course_has_Teacher` (`Course_idCourse`, `Teacher_idTeacher`) VALUES ('1', '1'), ('4', '1'),('5', '1'),
+																							 ('7', '1'),('8', '1'),('2', '2'),
+                                                                                             ('4', '3'),('5', '3'),('6', '3'),
+                                                                                             ('9', '4'),('10', '5'),('3', '6');
+
+
 
 
