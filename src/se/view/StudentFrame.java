@@ -348,7 +348,9 @@ public class StudentFrame extends javax.swing.JFrame implements Runnable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        System.exit(0);
+        StartFrame st = new StartFrame();
+        this.setVisible(false);
+        st.setVisible(true);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
