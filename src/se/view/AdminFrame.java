@@ -482,22 +482,21 @@ public class AdminFrame extends javax.swing.JFrame {
                                         asf.setVisible(true);
                                         asf.addButton.setVisible(false);
                                         asf.jButton1.setVisible(true);
-        asf.subjectTextArea.setVisible(true);
-        asf.math1A.setEnabled(true);
-        asf.math2B.setEnabled(true);
-        asf.math3C.setEnabled(true);
-        asf.eng1A.setEnabled(true);
-        asf.eng2A.setEnabled(true);
-        asf.swe1.setEnabled(true);
-        asf.swe2.setEnabled(true);
-        asf.swe3.setEnabled(true);
-        asf.sam2B.setEnabled(true);
-        asf.ekAA.setEnabled(true);
-                                       
-                                        
+                                        asf.subjectTextArea.setVisible(true);
+                                        asf.math1A.setEnabled(true);
+                                        asf.math2B.setEnabled(true);
+                                        asf.math3C.setEnabled(true);
+                                        asf.eng1A.setEnabled(true);
+                                        asf.eng2A.setEnabled(true);
+                                        asf.swe1.setEnabled(true);
+                                        asf.swe2.setEnabled(true);
+                                        asf.swe3.setEnabled(true);
+                                        asf.sam2B.setEnabled(true);
+                                        asf.ekAA.setEnabled(true);
+
                                         asf.idField.setText(click);
                                         Set<String> kursSet = asf.getInfoKurs(click);
-                                        
+
                                         asf.setValdaKurser(kursSet);
 
                                         String firstname = rs.getString("Firstname");
@@ -530,27 +529,27 @@ public class AdminFrame extends javax.swing.JFrame {
                                     rs = ps.executeQuery();
 
                                     if (rs.next()) {
-                                       atf.setVisible(true);
+                                        atf.setVisible(true);
                                         atf.addButton.setVisible(false);
                                         atf.jButton1.setVisible(true);
-                                        
-        atf.subjectTextArea.setVisible(true);
-        atf.math1A.setEnabled(true);
-        atf.math2B.setEnabled(true);
-        atf.math3C.setEnabled(true);
-        atf.eng1A.setEnabled(true);
-        atf.eng2A.setEnabled(true);
-        atf.swe1.setEnabled(true);
-        atf.swe2.setEnabled(true);
-        atf.swe3.setEnabled(true);
-        atf.sam2B.setEnabled(true);
-        atf.ekAA.setEnabled(true);
+
+                                        atf.subjectTextArea.setVisible(true);
+                                        atf.math1A.setEnabled(true);
+                                        atf.math2B.setEnabled(true);
+                                        atf.math3C.setEnabled(true);
+                                        atf.eng1A.setEnabled(true);
+                                        atf.eng2A.setEnabled(true);
+                                        atf.swe1.setEnabled(true);
+                                        atf.swe2.setEnabled(true);
+                                        atf.swe3.setEnabled(true);
+                                        atf.sam2B.setEnabled(true);
+                                        atf.ekAA.setEnabled(true);
 
                                         atf.idField.setText(click);
                                         Set<String> kursSet = atf.getInfoKurs(click);
-                                        
+
                                         atf.setValdaKurser(kursSet);
-                                        
+
                                         String firstname = rs.getString("Firstname");
                                         atf.fNameField.setText(firstname);
 
@@ -621,6 +620,9 @@ public class AdminFrame extends javax.swing.JFrame {
                                         astf.setVisible(true);
 
                                         astf.idField.setText(click);
+                                        
+                                        astf.addButton.setVisible(false);
+                                        astf.updateButton.setVisible(true);
 
                                         String profession = rs.getNString("Profession");
                                         astf.professionField.setText(profession);
@@ -746,7 +748,7 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addnewTeacherButtonActionPerformed
 
     private void addNewAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewAdminButtonActionPerformed
-          aaf.setVisible(true);
+         aaf.setVisible(true);
          aaf.jButton1.setVisible(false);
          aaf.addButton.setVisible(true);
          aaf.reset();
@@ -754,6 +756,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void staffButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffButtonActionPerformed
         astf.setVisible(true);
+        astf.addButton.setVisible(true);
+        astf.updateButton.setVisible(false);
     }//GEN-LAST:event_staffButtonActionPerformed
 
     private void jTable1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseDragged

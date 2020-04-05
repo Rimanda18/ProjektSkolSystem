@@ -420,7 +420,7 @@ public class AddNewStaffFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
+    public javax.swing.JButton addButton;
     private javax.swing.JButton closeButton;
     public javax.swing.JTextField fNameField;
     public javax.swing.JTextField idField;
@@ -440,7 +440,7 @@ public class AddNewStaffFrame extends javax.swing.JFrame {
     public javax.swing.JTextField professionField;
     public javax.swing.JTextField pwField;
     public javax.swing.JTextField uNameField;
-    private javax.swing.JButton updateButton;
+    public javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -39,7 +39,7 @@ INSERT INTO `Teacher` VALUES (1,'Daniel','Vikström','Danne','Daniel@teacher.com
 -- Course
 -- idCourse, Coursename
 INSERT INTO `Course` VALUES (1,'Matematik 1A'),(2,'Engelska 1A'),(3,'Engelska 2A'),(4,'Svenska 1'),(5,'Svenska 2'),
-(6,'Svenska 3'),(7,'Matematik 2B'),(8,'Matematik  3C'),(9,'Samhäll B2'),(10,'Ekonomi AA');
+(6,'Svenska 3'),(7,'Matematik 2B'),(8,'Matematik 3C'),(9,'Samhäll 2B'),(10,'Ekonomi AA');
 
 -- Admin_has_Course
 -- Course_idCourse, Admin_idAdmin
@@ -57,10 +57,10 @@ INSERT INTO `Course_has_Student` VALUES (1,1,null,null,null),(3,1,null,null,null
 
 -- Teacher
 -- Course_idCourse, Student_idStudent
-INSERT INTO `school.db`.`Course_has_Teacher` (`Course_idCourse`, `Teacher_idTeacher`) VALUES ('1', '1'), ('4', '1'),('5', '1'),
-																							 ('7', '1'),('8', '1'),('2', '2'),
-                                                                                             ('4', '3'),('5', '3'),('6', '3'),
-                                                                                             ('9', '4'),('10', '5'),('3', '6');
+INSERT INTO `school.db`.`Course_has_Teacher` (`Course_idCourse`, `Teacher_idTeacher`) VALUES ('1','1'), ('4','1'),('5','1'),
+																							 ('7','1'),('8','1'),('2','2'),
+                                                                                             ('4','3'),('5','3'),('6','3'),
+                                                                                             ('9','4'),('10','5'),('3','6');
 
 
 
