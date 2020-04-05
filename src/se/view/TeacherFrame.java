@@ -405,11 +405,12 @@ public class TeacherFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void getInfo(int id) {
-    
-        query = "SELECT Distinct idStudent, Student.Firstname, Student.Lastname, Student.Email, Coursename FROM Course \n"
-                + "LEFT JOIN Teacher ON Course.Teacher_idTeacher = Teacher.idTeacher\n"
-                + "LEFT JOIN Course_has_Student ON Course.idCourse = Course_has_Student.Course_idCourse\n"
-                + "LEFT JOIN Student ON Course_has_Student.Student_idStudent = Student.idStudent\n"
+
+        query = "SELECT Distinct idStudent, Student.Firstname, Student.Lastname, Student.Email, Coursename FROM Course\n"
+                + "JOIN Course_has_Teacher ON Course.idCourse = Course_has_Teacher.Course_idCourse\n"
+                + "JOIN Teacher ON Course_has_Teacher.Teacher_idTeacher = Teacher.idTeacher\n"
+                + "JOIN Course_has_Student ON Course.idCourse = Course_has_Student.Course_idCourse\n"
+                + "JOIN Student ON Course_has_Student.Student_idStudent = Student.idStudent\n"
                 + "WHERE Teacher.idTeacher = " + id;
               
         try {
