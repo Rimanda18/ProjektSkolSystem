@@ -435,7 +435,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_math1AActionPerformed
 
     private void math2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math2BActionPerformed
-        String idkurs = "2";
+        String idkurs = "7";
         String idTeacher = idField.getText();
         if(math2B.isSelected()){
            
@@ -467,7 +467,39 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
         String username = uNameField.getText();
         String email = mailField.getText();
         String password = pwField.getText();
-        insert(firstname, lastname, username, email, password);
+              
+
+        if (firstname.equals("")) {
+            JOptionPane.showMessageDialog(null, "Skriv förnamn!");
+        } else if (lastname.equals("")) {
+            JOptionPane.showMessageDialog(null, "Skriv efternamn!");
+        } else if (username.equals("")) {
+            JOptionPane.showMessageDialog(null, "Skriv användarnamn!");
+        } else if (email.equals("")) {
+            JOptionPane.showMessageDialog(null, "Skriv email!");
+        } else if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Kontrollera Mailadress! ");
+        } else if (usernameExists()) {
+            JOptionPane.showMessageDialog(null, "Detta användarnmn är redan registrerat");
+        } else if (password.equals("")) {
+            JOptionPane.showMessageDialog(null, "Skriv in ditt lösenord!");
+       
+        } else {
+            try {
+                query = "SELECT Email,Username FROM Teacher WHERE Email =? and Username=?" ;
+                ps = con.prepareStatement(query);
+                ps.setString(1, email);
+                ps.setString(2, username);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Detta email är redan registrerad!");
+                } else {
+                    insert(firstname, lastname, username, email, password);
+                }
+            } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null, ex.toString());
+            }
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
@@ -476,8 +508,41 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        update();
+        try {
+            String idTeacher = idField.getText();
+            query = "select * from Teacher where idTeacher = '" + idTeacher + "'";
+
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                String email = rs.getString("Email");
+                String userName = rs.getString("Username");
+
+                if (email.equals(mailField.getText()) && userName.equals(uNameField.getText())) {
+                    query = "Update Teacher set Firstname ='"
+                            + fNameField.getText() + "', Lastname ='" + lNameField.getText() + "', Username ='"
+                            + uNameField.getText() + "', Email ='" + mailField.getText() + "', Password ='"
+                            + pwField.getText() + "' WHERE idStudent = '" + idTeacher + "'";
+
+                    try {
+                        ps = con.prepareStatement(query);
+                        ps.executeUpdate();
+
+                        JOptionPane.showMessageDialog(null, "Updatering lyckades!");
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AddNewStaffFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    update();
+                }
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddNewAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void math3CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math3CActionPerformed
@@ -494,7 +559,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_math3CActionPerformed
 
     private void eng1AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng1AActionPerformed
-       String idkurs = "3";
+       String idkurs = "2";
         String idTeacher = idField.getText();
         if(eng1A.isSelected()){
            
@@ -507,7 +572,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eng1AActionPerformed
 
     private void eng2AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng2AActionPerformed
-        String idkurs = "7";
+        String idkurs = "3";
         String idTeacher = idField.getText();
         if(eng2A.isSelected()){
            
@@ -572,27 +637,33 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ekAAActionPerformed
 public void update() {
 
-        String idTeacher = idField.getText();
-        
-        if (idField.getText().isEmpty()) {
+         String idTeacher = idField.getText();
 
-            JOptionPane.showMessageDialog(null, "Updatering misslyckades!");
-            reset();
-            
+        if (isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Var god fyll i alla fält");
+
+        } else if (!isValidEmail(mailField.getText())) {
+            JOptionPane.showMessageDialog(this, "Email inte godkänd");
+        } else if (userExist() || userExist2()) {
+            JOptionPane.showMessageDialog(this, "Användaren redan regisrerad");
         } else {
-            query = "Update Teacher set Firstname ='" + fNameField.getText() + "', Lastname ='" + lNameField.getText() + "', Username ='"
+
+            query = "Update Teacher set Firstname ='"
+                    + fNameField.getText() + "', Lastname ='" + lNameField.getText() + "', Username ='"
                     + uNameField.getText() + "', Email ='" + mailField.getText() + "', Password ='"
-                    + pwField.getText() + "' WHERE teacher = '" + idTeacher + "'";
+                    + pwField.getText() +"' WHERE idTeacher = '" + idTeacher + "'";
 
             try {
                 ps = con.prepareStatement(query);
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Updatering lyckades!");
-                reset();
+
             } catch (SQLException ex) {
                 Logger.getLogger(AddNewStaffFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
 public void insert(String firstname, String lastname, String username, String email, String password) {
@@ -717,6 +788,7 @@ private void reset() {
         uNameField.setText("");
         mailField.setText("");
         pwField.setText("");
+        idField.setText("");
         subjectTextArea.setText("");
 
     }
@@ -804,10 +876,73 @@ private void reset() {
         sam2B.setSelected(kursSet.contains("Samhäll 2B"));
         ekAA.setSelected(kursSet.contains("Ekonomi AA"));
     }
-  public boolean emailExists() throws SQLException {
+  public boolean userExist() {
 
-        query = "SELECT Email FROM Teacher WHERE Email ='" + mailField.getText() + "'";
+        try {
+
+            String idStudent = idField.getText();
+
+            query = "select * from Teacher where idTeacher = ?";
+
+            ps = con.prepareStatement(query);
+            ps.setString(1, idStudent);
+            rs = ps.executeQuery();
+            String username = null;
+            if (rs.next()) {
+
+                 username = rs.getNString("Username");
+            }
+                String checkUsername = uNameField.getText();
+                query = "SELECT Username FROM Teacher WHERE Teacher =?";
+                ps = con.prepareStatement(query);
+                ps.setString(1,checkUsername);
+                rs = ps.executeQuery();
+                if (rs.next() && !uNameField.getText().equals(username)) {
+
+                    return true;
+
+                }
+            }catch (SQLException ex) {
+             Logger.getLogger(AddNewAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+         }
+            return false;
+        }
+    
+    public boolean userExist2() {
+        try {
+            
+            String idTeacher = idField.getText();
+
+            query = "select * from Teacher where idTeacher =? ";
+
+            ps = con.prepareStatement(query);
+            ps.setString(1, idTeacher);
+            rs = ps.executeQuery();
+            String email = null;
+            if (rs.next()) {
+
+                 email = rs.getNString("Email");
+            }
+            String checkEmail = mailField.getText();
+           query = "SELECT Email FROM Teacher WHERE Teacher =?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, checkEmail);
+            rs = ps.executeQuery();
+            if (rs.next() && !mailField.getText().equals(email)) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AddNewAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public boolean emailExists() throws SQLException {
+        String checkEmail = mailField.getText();
+        
+        query = "SELECT Email FROM Teacher WHERE Email =?";
         ps = con.prepareStatement(query);
+        ps.setString(1, checkEmail);
         rs = ps.executeQuery();
         if (rs.next()) {
             return true;
@@ -842,9 +977,10 @@ private void reset() {
     }
 
     public boolean isValidEmail(String email) {
-        if ((email.contains(".com") || email.contains(".se") || email.contains(".org") || email.contains("admin")) && email.contains("@")) {
+        if ((email.contains(".com") || email.contains(".se") || email.contains(".org") || email.contains("@teacher"))) {
             return true;
         }
         return false;
+    }
 }
-}
+ 

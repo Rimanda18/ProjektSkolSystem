@@ -28,7 +28,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private final String student = "student";
     private final String admin = "admin";
     private final String personal = "personal";
-    private final String lärare = "lärare";
+    private final String lärare = "Teacher";
 
     AddNewStudentFrame asf = new AddNewStudentFrame();
     AddNewTeacherFrame atf = new AddNewTeacherFrame();
@@ -482,6 +482,18 @@ public class AdminFrame extends javax.swing.JFrame {
                                         asf.setVisible(true);
                                         asf.addButton.setVisible(false);
                                         asf.jButton1.setVisible(true);
+        asf.subjectTextArea.setVisible(true);
+        asf.math1A.setEnabled(true);
+        asf.math2B.setEnabled(true);
+        asf.math3C.setEnabled(true);
+        asf.eng1A.setEnabled(true);
+        asf.eng2A.setEnabled(true);
+        asf.swe1.setEnabled(true);
+        asf.swe2.setEnabled(true);
+        asf.swe3.setEnabled(true);
+        asf.sam2B.setEnabled(true);
+        asf.ekAA.setEnabled(true);
+                                       
                                         
                                         asf.idField.setText(click);
                                         Set<String> kursSet = asf.getInfoKurs(click);
@@ -521,6 +533,18 @@ public class AdminFrame extends javax.swing.JFrame {
                                        atf.setVisible(true);
                                         atf.addButton.setVisible(false);
                                         atf.jButton1.setVisible(true);
+                                        
+        atf.subjectTextArea.setVisible(true);
+        atf.math1A.setEnabled(true);
+        atf.math2B.setEnabled(true);
+        atf.math3C.setEnabled(true);
+        atf.eng1A.setEnabled(true);
+        atf.eng2A.setEnabled(true);
+        atf.swe1.setEnabled(true);
+        atf.swe2.setEnabled(true);
+        atf.swe3.setEnabled(true);
+        atf.sam2B.setEnabled(true);
+        atf.ekAA.setEnabled(true);
 
                                         atf.idField.setText(click);
                                         Set<String> kursSet = atf.getInfoKurs(click);
@@ -635,6 +659,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         asf.setVisible(true);
+        asf.jButton1.setVisible(false);
         asf.subjectTextArea.setVisible(false);
         asf.math1A.setEnabled(false);
         asf.math2B.setEnabled(false);
@@ -705,7 +730,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void addnewTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewTeacherButtonActionPerformed
           atf.setVisible(true);
-          asf.setVisible(true);
+          atf.jButton1.setVisible(false);
+
         atf.subjectTextArea.setVisible(false);
         atf.math1A.setEnabled(false);
         atf.math2B.setEnabled(false);
