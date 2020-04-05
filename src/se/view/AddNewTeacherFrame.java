@@ -10,9 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import se.skola.MyConnection;
 /**
  *
  * @author rimazivkovic
@@ -31,6 +34,8 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         idField.enable(false);
+        con = MyConnection.getConnection(); 
+
     }
 
     /**
@@ -145,7 +150,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
         });
 
         math3C.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
-        math3C.setText("Matematik3C");
+        math3C.setText("Matematik 3C");
         math3C.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 math3CActionPerformed(evt);
@@ -279,9 +284,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
                                     .addComponent(fNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lNameField)
                                     .addComponent(uNameField)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(45, 45, 45)))
+                            .addComponent(jLabel2))
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -384,10 +387,11 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
                                                     .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(jLabel7))))
                                         .addGap(62, 62, 62)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addContainerGap(54, Short.MAX_VALUE))))))
         );
 
@@ -418,34 +422,42 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_uNameFieldActionPerformed
 
     private void math1AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math1AActionPerformed
- if(math1A.isSelected()){
-           subjectTextArea.append(math1A.getText() + "\n");
-
+        String idkurs = "1";
+        String idTeacher = idField.getText();
+        if(math1A.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_math1AActionPerformed
 
     private void math2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math2BActionPerformed
- if(math2B.isSelected()){
-           subjectTextArea.append(math2B.getText() + "\n");
-
+        String idkurs = "2";
+        String idTeacher = idField.getText();
+        if(math2B.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_math2BActionPerformed
 
     private void swe1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe1ActionPerformed
-        // TODO add your handling code here:
-         if(swe1.isSelected()){
-           subjectTextArea.append(swe1.getText() + "\n");
-
+       String idkurs = "4";
+        String idTeacher = idField.getText();
+        if(swe1.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_swe1ActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -469,80 +481,94 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void math3CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_math3CActionPerformed
-        // TODO add your handling code here:
-         if(math3C.isSelected()){
-           subjectTextArea.append(math3C.getText() + "\n");
-
+       String idkurs = "8";
+        String idTeacher = idField.getText();
+        if(math3C.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_math3CActionPerformed
 
     private void eng1AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng1AActionPerformed
-        // TODO add your handling code here:
-         if(eng1A.isSelected()){
-           subjectTextArea.append(eng1A.getText() + "\n");
-
+       String idkurs = "3";
+        String idTeacher = idField.getText();
+        if(eng1A.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_eng1AActionPerformed
 
     private void eng2AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eng2AActionPerformed
-        // TODO add your handling code here:
-         if(eng2A.isSelected()){
-           subjectTextArea.append(eng2A.getText() + "\n");
-
+        String idkurs = "7";
+        String idTeacher = idField.getText();
+        if(eng2A.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_eng2AActionPerformed
 
     private void swe2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe2ActionPerformed
-        // TODO add your handling code here:
-         if(swe2.isSelected()){
-           subjectTextArea.append(swe2.getText() + "\n");
-
+        String idkurs = "5";
+        String idTeacher = idField.getText();
+        if(swe2.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_swe2ActionPerformed
 
     private void swe3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swe3ActionPerformed
-        // TODO add your handling code here:
-         if(swe3.isSelected()){
-           subjectTextArea.append(swe3.getText() + "\n");
-
+       String idkurs = "6";
+        String idTeacher = idField.getText();
+        if(swe3.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_swe3ActionPerformed
 
     private void sam2BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sam2BActionPerformed
-        // TODO add your handling code here:
-         if(sam2B.isSelected()){
-           subjectTextArea.append(sam2B.getText() + "\n");
-
+       String idkurs = "9";
+        String idTeacher = idField.getText();
+        if(sam2B.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_sam2BActionPerformed
 
     private void ekAAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ekAAActionPerformed
-        // TODO add your handling code here:
-         if(ekAA.isSelected()){
-           subjectTextArea.append(ekAA.getText() + "\n");
-
+        String idkurs = "10";
+        String idTeacher = idField.getText();
+        if(ekAA.isSelected()){
+           
+           insertKurs(idkurs,idTeacher);
         }else{
             
-            
+            deleteKurs(idkurs,idTeacher);
             }
+        getInfoKurs(idTeacher);
     }//GEN-LAST:event_ekAAActionPerformed
 public void update() {
 
@@ -621,22 +647,27 @@ public void insert(String firstname, String lastname, String username, String em
         }
         
     }
-public void getInfoKurs(String click) {
+public Set<String> getInfoKurs(String click) {
         
-       //  ArrayList<String> kurs = new ArrayList<String>();
+      
+         Set<String> kursSet = new HashSet<String>();
 
-        
-        query = "SELECT Coursename FROM Course\n" 
-                +"Where Teacher_idTeacher =" + click;
+        subjectTextArea.setText("");
+
+         query = "SELECT Coursename FROM Course\n" 
+                + "LEFT JOIN Course_has_Teacher ON Course.idCourse = Course_has_Teacher.Course_idCourse\n" 
+               +  "LEFT JOIN Teacher ON Course_has_Teacher.Teacher_idTeacher = Teacher.idTeacher\n" 
+                + "WHERE Teacher.idTeacher = ? order by Course.coursename" ;
               
         try {
-            ps = con.prepareStatement(query);           
+            ps = con.prepareStatement(query);
+            ps.setString(1, click);
             rs = ps.executeQuery();
             
            
             while(rs.next()){
             String kurs = rs.getString("Coursename");
-            
+            kursSet.add(kurs);
             subjectTextArea.append(kurs + "\n");
             
 
@@ -644,11 +675,40 @@ public void getInfoKurs(String click) {
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }return kursSet;
 
     
           
 
+    }
+ private void insertKurs(String idkurs, String idTeacher){
+        
+        query = "Insert into course_has_Teacher (Course_idCourse, Teacher_idTeacher) values(?,?)";
+        
+        try{
+            ps = con.prepareStatement(query);
+            ps.setString(1, idkurs);
+            
+            ps.setString(2,idTeacher);
+            ps.executeUpdate();
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }
+    
+    private void deleteKurs(String idkurs, String idteacher){
+        query = "delete from course_has_Teacher where course_idcourse = ? and teacher_idteacher = ?" ;
+        
+        try{
+            ps = con.prepareStatement(query);
+            ps.setString(1, idkurs);
+            ps.setString(2, idteacher);
+            ps.executeUpdate();
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+    }
     }
 private void reset() {
 
@@ -697,14 +757,14 @@ private void reset() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
+    public javax.swing.JButton addButton;
     private javax.swing.JButton closeButton;
-    private javax.swing.JCheckBox ekAA;
-    private javax.swing.JCheckBox eng1A;
-    private javax.swing.JCheckBox eng2A;
+    public javax.swing.JCheckBox ekAA;
+    public javax.swing.JCheckBox eng1A;
+    public javax.swing.JCheckBox eng2A;
     public javax.swing.JTextField fNameField;
     public javax.swing.JTextField idField;
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -720,15 +780,71 @@ private void reset() {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField lNameField;
     public javax.swing.JTextField mailField;
-    private javax.swing.JCheckBox math1A;
-    private javax.swing.JCheckBox math2B;
-    private javax.swing.JCheckBox math3C;
+    public javax.swing.JCheckBox math1A;
+    public javax.swing.JCheckBox math2B;
+    public javax.swing.JCheckBox math3C;
     public javax.swing.JTextField pwField;
-    private javax.swing.JCheckBox sam2B;
-    private javax.swing.JTextArea subjectTextArea;
-    private javax.swing.JCheckBox swe1;
-    private javax.swing.JCheckBox swe2;
-    private javax.swing.JCheckBox swe3;
+    public javax.swing.JCheckBox sam2B;
+    public javax.swing.JTextArea subjectTextArea;
+    public javax.swing.JCheckBox swe1;
+    public javax.swing.JCheckBox swe2;
+    public javax.swing.JCheckBox swe3;
     public javax.swing.JTextField uNameField;
     // End of variables declaration//GEN-END:variables
+
+  void setValdaKurser(Set<String> kursSet) {
+        math1A.setSelected(kursSet.contains("Matematik 1A"));
+        math2B.setSelected(kursSet.contains("Matematik 2B"));
+        math3C.setSelected(kursSet.contains("Matematik 3C"));
+        eng1A.setSelected(kursSet.contains("Engelska 1A"));
+        eng2A.setSelected(kursSet.contains("Engelska 2A"));
+        swe1.setSelected(kursSet.contains("Svenska 1"));
+        swe2.setSelected(kursSet.contains("Svenska 2"));
+        swe3.setSelected(kursSet.contains("Svenska 3"));
+        sam2B.setSelected(kursSet.contains("Samhäll 2B"));
+        ekAA.setSelected(kursSet.contains("Ekonomi AA"));
+    }
+  public boolean emailExists() throws SQLException {
+
+        query = "SELECT Email FROM Teacher WHERE Email ='" + mailField.getText() + "'";
+        ps = con.prepareStatement(query);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean usernameExists() {
+        try {
+            query = "SELECT Username FROM Teacher WHERE Username ='" + uNameField.getText() + "'";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddNewAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+
+        if (idField.getText().isEmpty() || fNameField.getText().isEmpty() || lNameField.getText().isEmpty()
+                || uNameField.getText().isEmpty() || mailField.getText().isEmpty() || pwField.getText().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isValidEmail(String email) {
+        if ((email.contains(".com") || email.contains(".se") || email.contains(".org") || email.contains("admin")) && email.contains("@")) {
+            return true;
+        }
+        return false;
+}
 }

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -479,8 +480,13 @@ public class AdminFrame extends javax.swing.JFrame {
 
                                     if (rs.next()) {
                                         asf.setVisible(true);
+                                        asf.addButton.setVisible(false);
+                                        asf.jButton1.setVisible(true);
                                         
                                         asf.idField.setText(click);
+                                        Set<String> kursSet = asf.getInfoKurs(click);
+                                        
+                                        asf.setValdaKurser(kursSet);
 
                                         String firstname = rs.getString("Firstname");
                                         asf.fNameField.setText(firstname);
@@ -512,9 +518,14 @@ public class AdminFrame extends javax.swing.JFrame {
                                     rs = ps.executeQuery();
 
                                     if (rs.next()) {
-                                        atf.setVisible(true);
+                                       atf.setVisible(true);
+                                        atf.addButton.setVisible(false);
+                                        atf.jButton1.setVisible(true);
 
                                         atf.idField.setText(click);
+                                        Set<String> kursSet = atf.getInfoKurs(click);
+                                        
+                                        atf.setValdaKurser(kursSet);
                                         
                                         String firstname = rs.getString("Firstname");
                                         atf.fNameField.setText(firstname);
@@ -624,6 +635,19 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         asf.setVisible(true);
+        asf.subjectTextArea.setVisible(false);
+        asf.math1A.setEnabled(false);
+        asf.math2B.setEnabled(false);
+        asf.math3C.setEnabled(false);
+        asf.eng1A.setEnabled(false);
+        asf.eng2A.setEnabled(false);
+        asf.swe1.setEnabled(false);
+        asf.swe2.setEnabled(false);
+        asf.swe3.setEnabled(false);
+        asf.sam2B.setEnabled(false);
+        asf.ekAA.setEnabled(false);
+        
+        
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -681,6 +705,18 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void addnewTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewTeacherButtonActionPerformed
           atf.setVisible(true);
+          asf.setVisible(true);
+        atf.subjectTextArea.setVisible(false);
+        atf.math1A.setEnabled(false);
+        atf.math2B.setEnabled(false);
+        atf.math3C.setEnabled(false);
+        atf.eng1A.setEnabled(false);
+        atf.eng2A.setEnabled(false);
+        atf.swe1.setEnabled(false);
+        atf.swe2.setEnabled(false);
+        atf.swe3.setEnabled(false);
+        atf.sam2B.setEnabled(false);
+        atf.ekAA.setEnabled(false);
     }//GEN-LAST:event_addnewTeacherButtonActionPerformed
 
     private void addNewAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewAdminButtonActionPerformed
