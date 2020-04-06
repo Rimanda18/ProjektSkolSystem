@@ -561,8 +561,9 @@ public class StartFrame extends javax.swing.JFrame {
 
     private void teachersLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teachersLabelMouseClicked
         textArea.setText("");
-        query = "SELECT Firstname, Lastname, Email, Coursename FROM Teacher "
-                + "INNER JOIN Course ON Teacher.idTeacher = Course.Teacher_idTeacher";
+        query = "SELECT Firstname, Lastname, Email, Coursename FROM Teacher\n"
+                +"INNER JOIN Course_has_Teacher ON Teacher.idTeacher = Course_has_Teacher.Teacher_idTeacher\n"
+                +"INNER JOIN Course ON Course_has_Teacher.Course_idCourse = Course.idCourse;";
          try {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
