@@ -51,7 +51,7 @@ public class StaffFrame extends javax.swing.JFrame {
             while (rs.next()) {
 
                 String profession = rs.getString("Profession");
-                if (!profession.equals("")) {
+                if (profession != null) {
                     proffessionList.add(profession);
                 }
             }
