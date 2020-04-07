@@ -712,7 +712,7 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
                 rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     idStudent = rs.getInt(1);
-                    JOptionPane.showMessageDialog(null, firstname + " " + lastname + " har registrerats! I väntan på godkännande!");
+                    JOptionPane.showMessageDialog(null, firstname + " " + lastname + " har registrerats");
                 }
             }
      
@@ -772,30 +772,51 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
 
     private void insertKurs(String idkurs, String idStudent){
         
-        query = "Insert into course_has_student (course_idCourse, student_idstudent) values(?,?)";
-        
         try{
+            
+            query = "Insert into course_has_student (course_idCourse, student_idstudent) values(?,?)";
+            
+            try{
+                ps = con.prepareStatement(query);
+                ps.setString(1, idkurs);
+                ps.setString(2,idStudent);
+                ps.executeUpdate();
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+            query = "insert into presence (course_idCourse, student_idStudent) values(?,?)";
             ps = con.prepareStatement(query);
             ps.setString(1, idkurs);
             ps.setString(2,idStudent);
             ps.executeUpdate();
             
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
+            Logger.getLogger(AddNewStudentFrame.class.getName()).log(Level.SEVERE,null, ex);
         }
     }
     
     private void deleteKurs(String idkurs, String idStudent){
-        query = "delete from course_has_student where course_idcourse = ? and student_idstudent = ?" ;
-        
         try{
+            query = "delete from course_has_student where course_idcourse = ? and student_idstudent = ?" ;
+            
+            try{
+                ps = con.prepareStatement(query);
+                ps.setString(1, idkurs);
+                ps.setString(2, idStudent);
+                ps.executeUpdate();
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+            query = "delete from presence where course_idcourse = ? and student_idstudent = ?" ;
+            
             ps = con.prepareStatement(query);
             ps.setString(1, idkurs);
             ps.setString(2, idStudent);
             ps.executeUpdate();
-            
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
+            Logger.getLogger(AddNewStudentFrame.class.getName()).log(Level.SEVERE,null, ex);
     }
     }
 

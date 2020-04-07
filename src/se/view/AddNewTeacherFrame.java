@@ -696,6 +696,7 @@ public void insert(String firstname, String lastname, String username, String em
             int update = ps.executeUpdate();
             if (update == 1) {
                 rs = ps.getGeneratedKeys();
+                JOptionPane.showMessageDialog(null, firstname + " " + lastname + " har registrerats");
                
             }
 
