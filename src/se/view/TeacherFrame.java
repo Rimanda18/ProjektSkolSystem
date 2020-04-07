@@ -46,6 +46,7 @@ public class TeacherFrame extends javax.swing.JFrame {
     public TeacherFrame(String user){
         initComponents();
         con = MyConnection.getConnection();
+        this.setLocationRelativeTo(null);
         this.date = dt.showDate();
         dateLabel.setText(date); 
         this.idStudent = null; 
