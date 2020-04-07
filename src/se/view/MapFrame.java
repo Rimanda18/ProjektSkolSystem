@@ -14,8 +14,10 @@ public class MapFrame extends javax.swing.JFrame {
     /**
      * Creates new form Map
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public MapFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

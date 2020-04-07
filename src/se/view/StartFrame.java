@@ -621,7 +621,7 @@ public class StartFrame extends javax.swing.JFrame {
                        + "                                             \n"
                        +" Frånvaroanmälan ska ske före första lektionen   \n"
                        +" och samma dag som eleven inte kan närvara i skolan. \n"
-                       +" Det krävs en anmälan varje dag då studerand inte \n"
+                       +" Det krävs en anmälan varje dag då studerande inte \n"
                        +" kan närvara. Vid eventuella felaktigheter kontakta\n"
                        +" elevens lärare för justering.\n"
                        +"                                           \n"
