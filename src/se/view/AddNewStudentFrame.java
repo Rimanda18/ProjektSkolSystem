@@ -437,13 +437,15 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_math1AActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-                String firstname = fNameField.getText();
+        String firstname = fNameField.getText();
         String lastname = lNameField.getText();
         String username = uNameField.getText();
         String email = mailField.getText();
         String password = pwField.getText();
-        
-
+        controlData(firstname, lastname, username, email, password);   
+    }
+    
+    public void controlData(String firstname, String lastname, String username, String email, String password){
         if (firstname.equals("")) {
             JOptionPane.showMessageDialog(null, "Skriv in förnamn!");
         } else if (lastname.equals("")) {

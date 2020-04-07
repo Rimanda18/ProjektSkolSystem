@@ -28,8 +28,8 @@ public class TeacherFrame extends javax.swing.JFrame {
     TheDate dt = new TheDate();
     
     private int id;
-    private String firstname;
-    private String lastname;
+    private String TeacherFirstname;
+    private String TeacherLastname;
     /**
      * Creates new form TeacherFrame
      */
@@ -60,15 +60,15 @@ public class TeacherFrame extends javax.swing.JFrame {
 
             if (rs.next()) {
                 this.id = rs.getInt("Teacher.idTeacher");
-                this.firstname = rs.getString("Firstname");
-                this.lastname = rs.getString("Lastname");
+                this.TeacherFirstname = rs.getString("Firstname");
+                this.TeacherLastname = rs.getString("Lastname");
                 getInfo(id);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TeacherFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        teacherNameLabel.setText("Välkommen " + firstname + " " + lastname);
+        teacherNameLabel.setText("Välkommen " + TeacherFirstname + " " + TeacherLastname);
     }
 
     /**
@@ -434,7 +434,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         String email = emailField.getText();
         String password = passwordField.getText();
         AddNewStudentFrame ad = new AddNewStudentFrame();
-        ad.insert(firstname, lastname, username, email, password);
+        ad.controlData(firstname, lastname, username, email, password);
         reset();
         
     }//GEN-LAST:event_AddStudentButtonActionPerformed

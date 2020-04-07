@@ -147,11 +147,10 @@ public void login(String status, String title){
           try {    
            MimeMessage message = new MimeMessage(session);    
            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));    
-           message.setSubject("Password regained");    
-           message.setText(msg);    
+           message.setSubject("Lösenordet återhämtat");    
+           message.setText("Ditt lösenord är: "+msg + "\nHa en trevlig dag\nNewton Skola");    
            //send message  
            Transport.send(message);    
-           System.out.println("message sent successfully");    
           } catch (MessagingException e) {throw new RuntimeException(e);} 
         
     }
@@ -416,36 +415,40 @@ public void login(String status, String title){
             String password = getPassword("Student");
             if (!password.equals("")){
                 sendPassword(txtForgottenPassword.getText(),password);
-                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");
+                txtForgottenPassword.setText("");}
             else {
-                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+                jlblMessage.setText("<html>Denna postadress är icke registrerad!</html>");
             }
             break;
-            case "Teacher":
+            case "Lärare":
             password = getPassword("Teacher");
             if (!password.equals("")){
                 sendPassword(txtForgottenPassword.getText(),password);
-                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");
+                txtForgottenPassword.setText("");}
             else {
-                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+                jlblMessage.setText("<html>Denna postadress är icke registrerad!</html>");
             }
             break;
             case "Admin":
             password = getPassword("Admin");
             if (!password.equals("")){
                 sendPassword(txtForgottenPassword.getText(),password);
-                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");
+                txtForgottenPassword.setText("");}
             else {
-                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+                jlblMessage.setText("<html>Denna postadress är icke registrerad!</html>");
             }
             break;
-            case "Staff":
+            case "Personal":
             password = getPassword("Staff");
             if (!password.equals("")){
                 sendPassword(txtForgottenPassword.getText(),password);
-                jlblMessage.setText("<html>Lösenordet har skickats</html>");}
+                jlblMessage.setText("<html>Lösenordet har skickats</html>");
+                txtForgottenPassword.setText("");}
             else {
-                jlblMessage.setText("<html>Denna mailadress är icke registrerad!</html>");
+                jlblMessage.setText("<html>Denna postadress är icke registrerad!</html>");
             }
             break;
         }

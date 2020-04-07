@@ -524,7 +524,7 @@ public class AddNewTeacherFrame extends javax.swing.JFrame {
                     query = "Update Teacher set Firstname ='"
                             + fNameField.getText() + "', Lastname ='" + lNameField.getText() + "', Username ='"
                             + uNameField.getText() + "', Email ='" + mailField.getText() + "', Password ='"
-                            + pwField.getText() + "' WHERE idStudent = '" + idTeacher + "'";
+                            + pwField.getText() + "' WHERE idTeacher = '" + idTeacher + "'";
 
                     try {
                         ps = con.prepareStatement(query);
