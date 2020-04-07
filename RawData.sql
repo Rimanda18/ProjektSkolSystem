@@ -39,7 +39,7 @@ INSERT INTO `Teacher` VALUES (1,'Daniel','Vikström','Danne','Daniel@teacher.com
 -- Course
 -- idCourse, Coursename
 INSERT INTO `Course` VALUES (1,'Matematik 1A'),(2,'Engelska 1A'),(3,'Engelska 2A'),(4,'Svenska 1'),(5,'Svenska 2'),
-(6,'Svenska 3'),(7,'Matematik 2B'),(8,'Matematik 3C'),(9,'Samhäll 2B'),(10,'Ekonomi AA');
+(6,'Svenska 3'),(7,'Matematik 2B'),(8,'Matematik 3C'),(9,'Samhäll B2'),(10,'Ekonomi AA');
 
 -- Admin_has_Course
 -- Course_idCourse, Admin_idAdmin
@@ -47,20 +47,30 @@ INSERT INTO `Admin_has_Course` VALUES (1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),
 
 -- Course_has_Student
 -- Course_idCourse, Student_idStudent
-INSERT INTO `Course_has_Student` VALUES (1,1,null,null,null),(3,1,null,null,null),(4,1,null,null,null),(9,1,null,null,null),(10,1,null,null,null),(3,2,null,null,null),(4,2,null,null,null),(5,2,null,null,null),
-										(7,2,null,null,null),(8,2,null,null,null),(10,2,null,null,null),(2,3,null,null,null),(4,3,null,null,null),(5,3,null,null,null),(6,3,null,null,null),(7,3,null,null,null),
-                                        (10,3,null,null,null),(2,4,null,null,null),(5,4,null,null,null),(6,4,null,null,null),(9,4,null,null,null),(1,5,null,null,null),(3,5,null,null,null),(4,5,null,null,null),
-                                        (5,5,null,null,null),(9,5,null,null,null),(2,6,null,null,null),(4,6,null,null,null),(5,6,null,null,null),(6,6,null,null,null),(7,6,null,null,null),(9,6,null,null,null),
-                                        (1,7,null,null,null),(3,7,null,null,null),(6,7,null,null,null),(8,7,null,null,null),(2,8,null,null,null),(7,8,null,null,null),(10,8,null,null,null),(2,9,null,null,null),
-                                        (7,9,null,null,null),(10,9,null,null,null),(1,10,null,null,null),(2,10,null,null,null),(7,10,null,null,null),(1,11,null,null,null),(3,11,null,null,null),(8,11,null,null,null),
-                                        (1,12,null,null,null),(2,12,null,null,null),(6,12,null,null,null),(9,12,null,null,null);								
-
+INSERT INTO `Course_has_Student` VALUES (1,1),(3,1),(4,1),(9,1),(10,1),(3,2),(4,2),(5,2),
+										(7,2),(8,2),(10,2),(2,3),(4,3),(5,3),(6,3),(7,3),
+                                        (10,3),(2,4),(5,4),(6,4),(9,4),(1,5),(3,5),(4,5),
+                                        (5,5),(9,5),(2,6),(4,6),(5,6),(6,6),(7,6),(9,6),
+                                        (1,7),(3,7),(6,7),(8,7),(2,8),(7,8),(10,8),(2,9),
+                                        (7,9),(10,9),(1,10),(2,10),(7,10),(1,11),(3,11),(8,11),
+                                        (1,12),(2,12),(6,12),(9,12);					
+                                                                         
 -- Teacher
 -- Course_idCourse, Student_idStudent
-INSERT INTO `school.db`.`Course_has_Teacher` (`Course_idCourse`, `Teacher_idTeacher`) VALUES ('1','1'), ('4','1'),('5','1'),
-																							 ('7','1'),('8','1'),('2','2'),
-                                                                                             ('4','3'),('5','3'),('6','3'),
-                                                                                             ('9','4'),('10','5'),('3','6');
+INSERT INTO `school.db`.`Course_has_Teacher` (`Course_idCourse`, `Teacher_idTeacher`) VALUES ('1', '1'), ('4', '1'),('5', '1'),
+																							 ('7', '1'),('8', '1'),('2', '2'),
+                                                                                             ('4', '3'),('5', '3'),('6', '3'),
+                                                                                             ('9', '4'),('10', '5'),('3', '6');
+
+-- presence 
+--  presence_idCourse, presence_idStudent, DayDate, Attendance, Notes
+INSERT INTO `presence` VALUES (1,1,null,null,null),(3,1,null,null,null),(4,1,null,null,null),(9,1,null,null,null),(10,1,null,null,null),(3,2,null,null,null),(4,2,null,null,null),(5,2,null,null,null),
+							  (7,2,null,null,null),(8,2,null,null,null),(10,2,null,null,null),(2,3,null,null,null),(4,3,null,null,null),(5,3,null,null,null),(6,3,null,null,null),(7,3,null,null,null),
+							  (10,3,null,null,null),(2,4,null,null,null),(5,4,null,null,null),(6,4,null,null,null),(9,4,null,null,null),(1,5,null,null,null),(3,5,null,null,null),(4,5,null,null,null),
+							  (5,5,null,null,null),(9,5,null,null,null),(2,6,null,null,null),(4,6,null,null,null),(5,6,null,null,null),(6,6,null,null,null),(7,6,null,null,null),(9,6,null,null,null),
+                              (1,7,null,null,null),(3,7,null,null,null),(6,7,null,null,null),(8,7,null,null,null),(2,8,null,null,null),(7,8,null,null,null),(10,8,null,null,null),(2,9,null,null,null),
+                              (7,9,null,null,null),(10,9,null,null,null),(1,10,null,null,null),(2,10,null,null,null),(7,10,null,null,null),(1,11,null,null,null),(3,11,null,null,null),(8,11,null,null,null),
+                              (1,12,null,null,null),(2,12,null,null,null),(6,12,null,null,null),(9,12,null,null,null);
 
 
 
