@@ -787,10 +787,10 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
             }catch(SQLException ex){
                 JOptionPane.showMessageDialog(null, ex.toString());
             }
-            query = "insert into presence (course_idCourse, student_idStudent) values(?,?)";
+            query = "insert into presence (presence_idStudent, presence_idcourse) values(?,?)";
             ps = con.prepareStatement(query);
-            ps.setString(1, idkurs);
-            ps.setString(2,idStudent);
+            ps.setString(1, idStudent);
+            ps.setString(2,idkurs);
             ps.executeUpdate();
             
         }catch(SQLException ex){
@@ -811,11 +811,11 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
             }catch(SQLException ex){
                 JOptionPane.showMessageDialog(null, ex.toString());
             }
-            query = "delete from presence where course_idcourse = ? and student_idstudent = ?" ;
+            query = "delete from presence where presence_idStudent = ? and presence_idcourse = ?" ;
             
             ps = con.prepareStatement(query);
-            ps.setString(1, idkurs);
-            ps.setString(2, idStudent);
+            ps.setString(1, idStudent);
+            ps.setString(2, idkurs);
             ps.executeUpdate();
         }catch(SQLException ex){
             Logger.getLogger(AddNewStudentFrame.class.getName()).log(Level.SEVERE,null, ex);
