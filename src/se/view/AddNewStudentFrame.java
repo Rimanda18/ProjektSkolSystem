@@ -832,6 +832,16 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         pwField.setText("");
         idField.setText("");
         subjectTextArea.setText("");
+        math1A.setSelected(false);
+        math2B.setSelected(false);
+        math3C.setSelected(false);
+         eng1A.setSelected(false);
+        eng2A.setSelected(false);
+        swe1.setSelected(false);
+        swe2.setSelected(false);
+        swe3.setSelected(false);
+        sam2B.setSelected(false);
+        ekAA.setSelected(false);
 
     }
 
