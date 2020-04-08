@@ -662,6 +662,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         asf.setVisible(true);
         asf.jButton1.setVisible(false);
+        asf.addButton.setVisible(true);
         asf.subjectTextArea.setVisible(false);
         asf.math1A.setEnabled(false);
         asf.math2B.setEnabled(false);
@@ -733,6 +734,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private void addnewTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewTeacherButtonActionPerformed
           atf.setVisible(true);
           atf.jButton1.setVisible(false);
+          atf.addButton.setVisible(true);
 
         atf.subjectTextArea.setVisible(false);
         atf.math1A.setEnabled(false);
