@@ -925,7 +925,7 @@ public class AddNewStudentFrame extends javax.swing.JFrame {
         swe1.setSelected(kursSet.contains("Svenska 1"));
         swe2.setSelected(kursSet.contains("Svenska 2"));
         swe3.setSelected(kursSet.contains("Svenska 3"));
-        sam2B.setSelected(kursSet.contains("Samhäll B2"));
+        sam2B.setSelected(kursSet.contains("Samhäll 2B"));
         ekAA.setSelected(kursSet.contains("Ekonomi AA"));
     }
     public boolean userExist() {
